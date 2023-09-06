@@ -5,10 +5,11 @@ import { UsersContext } from '../context/UsersProvider';
 function EditableCell({ option, player }) {
 	const [val, setVal] = useState(player[option] || '');
 	const { updatePlayer } = useContext(PlayersContext);
-	const { budget } = useContext(UsersContext);
+	const { userSettings } = useContext(UsersContext);
 
 	const updateHandler = () => {
-		const value = option === 'pricePrediction' ? val / budget : val;
+		const value =
+			option === 'pricePrediction' ? val / userSettings.budget : val;
 		updatePlayer(player._id, { [option]: value });
 	};
 

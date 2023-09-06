@@ -26,8 +26,12 @@ function Home() {
 
 	return (
 		<div>
-			{players.length > 0 ? (
-				<div className='relative w-screen flex items-center justify-center '>
+			{
+				// CHECK IF A LIST OF PLAYERS EXISTS OR, IF FILTERS ARE APPLIED, TO
+				//RENDER HOME SCREEN. OTHERWISE RENDERS FILE UPLOAD COMPONENT
+			}
+			{players.length > 0 || filtered === true ? (
+				<div className='relative w-screen flex flex-col md:flex-row items-center justify-center text-slate-700'>
 					<Filter key={filtered} />
 					{isAdding && isTeamBuilderOpen && (
 						<NewTeamView saveAndClose={saveAndClose} />
@@ -36,7 +40,16 @@ function Home() {
 				</div>
 			) : (
 				<div className='w-full h-screen flex items-center justify-center'>
-					{isLoading ? <LoadingScreen /> : <UploadForm />}
+					{isLoading ? (
+						<LoadingScreen />
+					) : (
+						<div className='w-96 bg-slate-100 rounded p-10 text-center'>
+							<h2 className='text-lg'>
+								Benvenuto! Per iniziare occorre caricare una lista di giocatori
+							</h2>
+							<UploadForm />
+						</div>
+					)}
 				</div>
 			)}
 			<div className='fixed flex flex-col gap-4 top-1 left-1 md:top-auto md:left-auto md:bottom-6 md:right-6'>

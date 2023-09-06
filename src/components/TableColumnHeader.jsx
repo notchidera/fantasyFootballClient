@@ -19,7 +19,7 @@ function TableColumnHaeader({ option }) {
 		>
 			<button
 				onClick={sortingHandler}
-				className='flex gap-2 items-center justify-center whitespace-nowrap'
+				className='flex gap-2 w-full items-center justify-center text-center whitespace-nowrap'
 			>
 				{option.label}
 				<span onClick={sortingHandler} className='hover:text-white'>

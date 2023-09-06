@@ -22,7 +22,6 @@ const TeamsProvider = ({ children }) => {
 			const respObj = await axios.get('http://localhost:8080/api/teams', {
 				withCredentials: true,
 			});
-			console.log(respObj);
 
 			setAllTeams(
 				respObj.data.data.map((team) => ({

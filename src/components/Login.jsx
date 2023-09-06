@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { UsersContext } from '../context/UsersProvider';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import Button from './Button';
 
@@ -12,7 +13,7 @@ function Login({ type }) {
 	});
 
 	const [errMsg, setErrMsg] = useState('');
-	const { setIsLoggedIn, isLoggedIn } = useContext(UsersContext);
+	const { setIsLoggedIn } = useContext(UsersContext);
 
 	const title = type[0].toUpperCase() + type.slice(1);
 
@@ -22,15 +23,25 @@ function Login({ type }) {
 	const submitHandler = async (e) => {
 		e.preventDefault();
 		try {
-			const respObj = await axios.post(
-				`http://localhost:8080/api/users/${type}`,
-				form,
-				{ withCredentials: true }
+			const respObj = await toast.promise(
+				axios.post(`http://localhost:8080/api/users/${type}`, form, {
+					withCredentials: true,
+				}),
+				{
+					pending: 'Verifica credenziali',
+					success: `${type} effettuato con successo!`,
+					error: {
+						render({ data }) {
+							console.log(data);
+							return data.response.data.message;
+						},
+					},
+				}
 			);
 			setIsLoggedIn(true);
 			console.log(respObj);
 		} catch (err) {
-			console.log(err);
+			toast.error(err);
 			setErrMsg(err.response.data.message);
 		}
 	};

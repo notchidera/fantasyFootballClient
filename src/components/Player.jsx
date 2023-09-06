@@ -10,8 +10,8 @@ function Player({ player }) {
 	const { isAdding, addPlayer, currentTeam, removePlayer } =
 		useContext(TeamsContext);
 
-	const managePlayerButton = currentTeam.players[player.position]?.includes(
-		player._id
+	const managePlayerButton = currentTeam.players.find(
+		(pl) => player._id === pl._id
 	) ? (
 		<RoundedButton
 			color={'red'}
@@ -39,14 +39,16 @@ function Player({ player }) {
 					}`}
 				>
 					{option.value === 'position' ? (
-						<p
-							className={`w-6 h-6 flex items-center justify-center rounded ${
-								option.value === 'position' &&
-								positions.find((pos) => pos.label === player.position)?.color
-							}`}
-						>
-							{player[option.value]}
-						</p>
+						<div className='flex items-center justify-center w-full'>
+							<p
+								className={`w-6 h-6 flex items-center justify-center rounded ${
+									option.value === 'position' &&
+									positions.find((pos) => pos.label === player.position)?.color
+								}`}
+							>
+								{player[option.value]}
+							</p>
+						</div>
 					) : editableOptions.includes(option.value) ? (
 						<EditableCell option={option.value} player={player} />
 					) : option.value === 'name' && isAdding ? (

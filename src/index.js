@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import UsersProvider from './context/UsersProvider';
 import ReactDOM from 'react-dom/client';
+import 'tw-elements-react/dist/css/tw-elements-react.min.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';

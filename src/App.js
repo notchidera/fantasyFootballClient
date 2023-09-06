@@ -36,15 +36,14 @@ function App() {
 		<PlayersProvider>
 			<TeamsProvider>
 				<ToastContainer
-					position='top-center'
-					autoClose={4000}
+					position='top-right'
+					autoClose={2000}
 					hideProgressBar={false}
 					newestOnTop={false}
 					closeOnClick
 					rtl={false}
 					draggable
-					pauseOnHover
-					theme='light'
+					theme='colored'
 				/>
 				<div className=' bg-slate-700 min-h-screen w-full'>
 					{isLoading ? (

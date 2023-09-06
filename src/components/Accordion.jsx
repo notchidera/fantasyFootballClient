@@ -1,15 +1,32 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import AccordionItem from './AccordionItem';
 
-function Accordion({ children, title }) {
-	const [isOpen, setIsOpen] = useState(false);
+export default function Accordion({ items }) {
+	///ITEMS SHOULD BE AN ARRAY OF OBJECTS WITH ID, TITLE AND CONTENT KEYS
+	const [activeElement, setActiveElement] = useState('');
+
+	const handleClick = (value) => {
+		if (value === activeElement) {
+			setActiveElement('');
+		} else {
+			setActiveElement(value);
+		}
+	};
 	return (
-		<div className='flex flex-col gap-4 p-2'>
-			<h2 className='p-2 text-lg' onClick={() => setIsOpen((prev) => !prev)}>
-				{title}
-			</h2>
-			<p className={`${!isOpen && 'h-0'}`}>{children}</p>
-		</div>
+		<>
+			<div className='rounded w-full border border-l-0 border-r-0 border-t-0  border-neutral-200 bg-slate-100 dark:border-neutral-600 dark:bg-neutral-800'>
+				{items.map((item) => (
+					<AccordionItem
+						key={item.id}
+						activeElement={activeElement}
+						handleClick={handleClick}
+						id={item.id}
+						title={item.title}
+					>
+						{item.content}
+					</AccordionItem>
+				))}
+			</div>
+		</>
 	);
 }
-
-export default Accordion;

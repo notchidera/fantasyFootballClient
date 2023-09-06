@@ -7,7 +7,11 @@ export const UsersContext = createContext();
 
 const UsersProvider = ({ children }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [budget, setBudget] = useState(500);
+	const [userSettings, setUserSettings] = useState({
+		budget: 500,
+		players: 10,
+	});
+
 	const [isLoading, setIsLoading] = useState(false);
 	useEffect(() => {
 		const authenticate = async () => {
@@ -17,7 +21,8 @@ const UsersProvider = ({ children }) => {
 					'http://localhost:8080/api/users/login',
 					{ withCredentials: true }
 				);
-				setBudget(respObj.data.data.budget);
+				const { budget, players } = respObj.data.data;
+				setUserSettings({ budget, players });
 				setIsLoggedIn(true);
 			} catch (err) {
 				if (err.response.status === 401) setIsLoggedIn(false);
@@ -28,19 +33,21 @@ const UsersProvider = ({ children }) => {
 		authenticate();
 	}, [isLoggedIn]);
 
-	const updateBudget = async (budget) => {
+	const updateSetting = async (setting, value) => {
+		console.log({ setting }, { value });
 		await toast.promise(
 			axios.patch(
 				'http://localhost:8080/api/users/',
-				{ budget },
+				{ [setting]: Number(value) },
 				{ withCredentials: true }
 			),
 			{
 				pending: 'Aggiornamento in corso',
-				success: 'Budget aggiornato!',
+				success: 'Aggiornamento eseguito!',
 				error: 'Qualcosa è andato storto',
 			}
 		);
+		setUserSettings((prev) => ({ ...prev, [setting]: value }));
 	};
 	return (
 		<UsersContext.Provider
@@ -49,7 +56,8 @@ const UsersProvider = ({ children }) => {
 				setIsLoading,
 				isLoggedIn,
 				setIsLoggedIn,
-				budget,
+				userSettings,
+				updateSetting,
 			}}
 		>
 			{children}
