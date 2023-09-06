@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import axios from 'axios';
+import apiCall from '../api';
 
 export const UsersContext = createContext();
 
@@ -17,10 +17,7 @@ const UsersProvider = ({ children }) => {
 		const authenticate = async () => {
 			setIsLoading(true);
 			try {
-				const respObj = await axios.get(
-					'http://localhost:8080/api/users/login',
-					{ withCredentials: true }
-				);
+				const respObj = await apiCall('get', '/api/users/login');
 				const { budget, players } = respObj.data.data;
 				setUserSettings({ budget, players });
 				setIsLoggedIn(true);
@@ -36,17 +33,14 @@ const UsersProvider = ({ children }) => {
 	const updateSetting = async (setting, value) => {
 		console.log({ setting }, { value });
 		await toast.promise(
-			axios.patch(
-				'http://localhost:8080/api/users/',
-				{ [setting]: Number(value) },
-				{ withCredentials: true }
-			),
+			apiCall('patch', '/api/users/', { [setting]: Number(value) }),
 			{
 				pending: 'Aggiornamento in corso',
 				success: 'Aggiornamento eseguito!',
 				error: 'Qualcosa è andato storto',
 			}
 		);
+
 		setUserSettings((prev) => ({ ...prev, [setting]: value }));
 	};
 	return (

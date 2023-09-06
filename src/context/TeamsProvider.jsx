@@ -2,6 +2,7 @@ import { createContext, useState, useContext, useEffect } from 'react';
 import { PlayersContext } from './PlayersProvider';
 import { UsersContext } from './UsersProvider';
 import { toast } from 'react-toastify';
+import apiCall from '../api';
 import axios from 'axios';
 
 export const TeamsContext = createContext();
@@ -9,7 +10,6 @@ export const TeamsContext = createContext();
 const TeamsProvider = ({ children }) => {
 	const [isAdding, setIsAdding] = useState(false);
 	const [inSettings, setInSettings] = useState(false);
-	const { allPlayers } = useContext(PlayersContext);
 	const { isLoggedIn, budget } = useContext(UsersContext);
 	const [allTeams, setAllTeams] = useState([]);
 	const [currentTeam, setCurrentTeam] = useState({
@@ -19,9 +19,7 @@ const TeamsProvider = ({ children }) => {
 
 	useEffect(() => {
 		const getAllTeams = async () => {
-			const respObj = await axios.get('http://localhost:8080/api/teams', {
-				withCredentials: true,
-			});
+			const respObj = await apiCall('get', '/api/teams');
 
 			setAllTeams(
 				respObj.data.data.map((team) => ({
@@ -66,16 +64,11 @@ const TeamsProvider = ({ children }) => {
 	};
 
 	const deleteTeam = async (teamId) => {
-		await toast.promise(
-			axios.delete('http://localhost:8080/api/teams/' + teamId, {
-				withCredentials: true,
-			}),
-			{
-				pending: 'Sto cancellando il team',
-				success: 'Team cancellato!',
-				error: 'Qualcosa è andato storto, riprovare',
-			}
-		);
+		await toast.promise(apiCall('delete', '/api/teams/' + teamId), {
+			pending: 'Sto cancellando il team',
+			success: 'Team cancellato!',
+			error: 'Qualcosa è andato storto, riprovare',
+		});
 		setAllTeams((prev) => prev.filter((team) => team._id !== teamId));
 	};
 
@@ -83,11 +76,7 @@ const TeamsProvider = ({ children }) => {
 		if (id) {
 			try {
 				const respObj = await toast.promise(
-					axios.patch(
-						'http://localhost:8080/api/teams/' + currentTeam._id,
-						currentTeam,
-						{ withCredentials: true }
-					),
+					apiCall('patch', '/api/teams/' + currentTeam._id, currentTeam),
 					{
 						pending: 'Salvataggio in corso',
 						success: 'Salvataggio riuscito!',
@@ -106,9 +95,7 @@ const TeamsProvider = ({ children }) => {
 		} else {
 			try {
 				const respObj = await toast.promise(
-					axios.post('http://localhost:8080/api/teams/', currentTeam, {
-						withCredentials: true,
-					}),
+					apiCall('post', '/api/teams/', currentTeam),
 					{
 						pending: 'Salvataggio in corso',
 						success: 'Salvataggio riuscito!',

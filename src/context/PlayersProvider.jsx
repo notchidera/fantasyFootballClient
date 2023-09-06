@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 
 import axios from 'axios';
+import apiCall from '../api';
 import { UsersContext } from './UsersProvider';
 import { toast } from 'react-toastify';
 import { sanify } from '../utilities';
@@ -65,27 +66,43 @@ function PlayersProvider({ children }) {
 	const getAllPlayers = async () => {
 		setIsLoading(true);
 		try {
-			const respObj = await toast.promise(
-				axios.get('http://localhost:8080/api/players', {
-					withCredentials: true,
-				}),
-				{
-					pending: {
-						render() {
-							return 'Recupero la lista';
-						},
-						toastId: 'gettingPlayers',
+			// const respObj = await toast.promise(
+			// 	axios.get('http://localhost:8080/api/players', {
+			// 		withCredentials: true,
+			// 	}),
+			// 	{
+			// 		pending: {
+			// 			render() {
+			// 				return 'Recupero la lista';
+			// 			},
+			// 			toastId: 'gettingPlayers',
+			// 		},
+			// 		success: {
+			// 			render({ data }) {
+			// 				if (data.data.length > 0) return 'Lista caricata con successo';
+			// 				else return 'Benvenuto';
+			// 			},
+			// 			toastId: 'getAllPlayers',
+			// 		},
+			// 		error: 'Qualcosa è andato storto, riprovare',
+			// 	}
+			// );
+			const respObj = await toast.promise(apiCall('get', '/api/players'), {
+				pending: {
+					render() {
+						return 'Recupero la lista';
 					},
-					success: {
-						render({ data }) {
-							if (data.data.length > 0) return 'Lista caricata con successo';
-							else return 'Benvenuto';
-						},
-						toastId: 'getAllPlayers',
+					toastId: 'gettingPlayers',
+				},
+				success: {
+					render({ data }) {
+						if (data.data.length > 0) return 'Lista caricata con successo';
+						else return 'Benvenuto';
 					},
-					error: 'Qualcosa è andato storto, riprovare',
-				}
-			);
+					toastId: 'getAllPlayers',
+				},
+				error: 'Qualcosa è andato storto, riprovare',
+			});
 			console.log(respObj.data);
 
 			allPlayers.current = positionsLabels
@@ -106,11 +123,13 @@ function PlayersProvider({ children }) {
 	}, [isLoggedIn, userSettings]);
 
 	const updatePlayer = async (_id, option) => {
-		const respObj = await axios.patch(
-			'http://localhost:8080/api/players/' + _id,
-			option,
-			{ withCredentials: true }
-		);
+		const respObj = await apiCall('patch', '/api/players/' + _id, option);
+
+		// const respObj = await axios.patch(
+		// 	'http://localhost:8080/api/players/' + _id,
+		// 	option,
+		// 	{ withCredentials: true }
+		// );
 		setPlayers((prev) =>
 			prev.map((player) =>
 				player._id === _id ? { ...player, option } : player
