@@ -2,8 +2,7 @@ import { useContext, useState } from 'react';
 import { UsersContext } from '../context/UsersProvider';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
-import axios from 'axios';
+import apiCall from '../api';
 
 import UploadForm from './UploadForm';
 import RoundedButton from './RoundedButton';
@@ -17,20 +16,15 @@ function Settings() {
 	const logoutHandler = async () => {
 		console.log('logout');
 		try {
-			const respObj = await toast.promise(
-				axios.get('http://localhost:8080/api/users/logout', {
-					withCredentials: true,
-				}),
-				{
-					pending: 'Verifica credenziali',
-					success: `Logout effettuato con successo!`,
-					error: {
-						render({ data }) {
-							return;
-						},
+			const respObj = await toast.promise(apiCall('get', '/api/users/logout'), {
+				pending: 'Verifica credenziali',
+				success: `Logout effettuato con successo!`,
+				error: {
+					render({ data }) {
+						return;
 					},
-				}
-			);
+				},
+			});
 			setIsLoggedIn(false);
 		} catch (err) {
 			alert(err.message);

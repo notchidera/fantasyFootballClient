@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { UsersContext } from '../context/UsersProvider';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import apiCall from '../api';
 import Button from './Button';
 
 function Login({ type }) {
@@ -24,9 +24,7 @@ function Login({ type }) {
 		e.preventDefault();
 		try {
 			const respObj = await toast.promise(
-				axios.post(`http://localhost:8080/api/users/${type}`, form, {
-					withCredentials: true,
-				}),
+				apiCall('post', `/api/users/${type}`, form),
 				{
 					pending: 'Verifica credenziali',
 					success: `${type} effettuato con successo!`,
