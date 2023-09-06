@@ -64,7 +64,7 @@ function PlayersProvider({ children }) {
 			}));
 
 	const getAllPlayers = async () => {
-		setIsLoading(true);
+		setIsLoading(false);
 		try {
 			// const respObj = await toast.promise(
 			// 	axios.get('http://localhost:8080/api/players', {
