@@ -17,7 +17,6 @@ function Home() {
 	const { filtered, isLoading, players } = useContext(PlayersContext);
 
 	const [isTeamBuilderOpen, setIsTeamBuilderOpen] = useState(true);
-	console.log(isLoading);
 
 	const saveAndClose = () => {
 		setIsAdding(false);

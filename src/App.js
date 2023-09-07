@@ -15,9 +15,8 @@ function App() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { isLoading, isLoggedIn } = useContext(UsersContext);
-	console.log(process.env.NODE_ENV);
 	const isMounted = useRef(false);
-
+	console.log(isLoggedIn);
 	useEffect(() => {
 		if (isMounted.current) {
 			if (isLoggedIn) {
@@ -50,7 +49,10 @@ function App() {
 						<LoadingScreen />
 					) : (
 						<Routes>
-							<Route index element={<Home />} />
+							<Route
+								index
+								element={isLoggedIn ? <Login type='login' /> : <Home />}
+							/>
 							<Route
 								path='/login'
 								element={<Login key='login' type='login' />}

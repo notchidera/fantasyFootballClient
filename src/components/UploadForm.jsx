@@ -1,7 +1,8 @@
 import { useState, useContext } from 'react';
 import { PlayersContext } from '../context/PlayersProvider';
-import { UsersContext } from '../context/UsersProvider';
-import axios from 'axios';
+
+import apiCall from '../api';
+
 import { FileUploader } from 'react-drag-drop-files';
 import * as XLSX from 'xlsx';
 import { toast } from 'react-toastify';
@@ -38,9 +39,7 @@ function UploadForm() {
 			);
 			console.log(jsonData);
 			const respObj = await toast.promise(
-				axios.post('http://localhost:8080/api/players', jsonData, {
-					withCredentials: true,
-				}),
+				apiCall('post', '/api/players', jsonData),
 				{
 					pending: 'Sto caricando la lista',
 					success: 'Lista caricata con successo!',
