@@ -51,7 +51,7 @@ function App() {
 						<Routes>
 							<Route
 								index
-								element={isLoggedIn ? <Login type='login' /> : <Home />}
+								element={!isLoggedIn ? <Login type='login' /> : <Home />}
 							/>
 							<Route
 								path='/login'
