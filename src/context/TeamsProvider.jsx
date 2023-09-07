@@ -10,7 +10,7 @@ export const TeamsContext = createContext();
 const TeamsProvider = ({ children }) => {
 	const [isAdding, setIsAdding] = useState(false);
 	const [inSettings, setInSettings] = useState(false);
-	const { isLoggedIn, budget } = useContext(UsersContext);
+	const { isLoggedIn, userSettings } = useContext(UsersContext);
 	const [allTeams, setAllTeams] = useState([]);
 	const [currentTeam, setCurrentTeam] = useState({
 		name: '',
@@ -26,7 +26,9 @@ const TeamsProvider = ({ children }) => {
 					...team,
 					players: team.players.map((player) => ({
 						...player,
-						pricePrediction: player.pricePrediction * budget,
+						pricePrediction: Math.round(
+							player.pricePrediction * userSettings.budget
+						),
 					})),
 				}))
 			);
@@ -72,7 +74,7 @@ const TeamsProvider = ({ children }) => {
 		setAllTeams((prev) => prev.filter((team) => team._id !== teamId));
 	};
 
-	const saveTeam = async (id) => {
+	const saveTeam = async (id, reset) => {
 		if (id) {
 			try {
 				const respObj = await toast.promise(
@@ -104,7 +106,14 @@ const TeamsProvider = ({ children }) => {
 				);
 				const newTeam = { ...currentTeam, _id: respObj.data.data._id };
 				setAllTeams((prev) => [...prev, newTeam]);
-				setCurrentTeam(newTeam);
+				setCurrentTeam(
+					!reset
+						? newTeam
+						: {
+								name: '',
+								players: [],
+						  }
+				);
 			} catch (err) {
 				console.log(err);
 				toast.error('Salvataggio non riuscito, riprovare');

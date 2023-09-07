@@ -10,7 +10,7 @@ function Player({ player }) {
 	const { isAdding, addPlayer, currentTeam, removePlayer } =
 		useContext(TeamsContext);
 
-	const managePlayerButton = currentTeam.players.find(
+	const managePlayerButton = currentTeam.players?.find(
 		(pl) => player._id === pl._id
 	) ? (
 		<RoundedButton

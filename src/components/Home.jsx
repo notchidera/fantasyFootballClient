@@ -10,7 +10,7 @@ import RoundedButton from './RoundedButton';
 import LoadingScreen from './LoadingScreen';
 import NewTeamView from './NewTeamView';
 import Filter from './Filter';
-import { settings, home, openModal, list } from '../icons/icons';
+import { settings, home, openModal, list, users } from '../icons/icons';
 
 function Home() {
 	const { setIsAdding, isAdding, setCurrentTeam, inSettings } =
@@ -24,7 +24,7 @@ function Home() {
 	const saveAndClose = () => {
 		setIsAdding(false);
 		setIsTeamBuilderOpen(true);
-		setCurrentTeam({});
+		setCurrentTeam({ name: '', players: [] });
 	};
 
 	return (
@@ -69,7 +69,7 @@ function Home() {
 						onClick={() => setIsTeamBuilderOpen((prev) => !prev)}
 						color='green'
 						size={'lg'}
-						icon={openModal}
+						icon={users}
 					/>
 				)}
 				<Link to='/teams'>

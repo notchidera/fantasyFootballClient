@@ -6,18 +6,18 @@ import Button from './Button';
 function NewTeamView({ saveAndClose }) {
 	const { currentTeam, saveTeam } = useContext(TeamsContext);
 
-	const saveTeamHandler = () => {
+	const saveTeamHandler = (reset) => {
 		if (!currentTeam.name.trim()) {
 			alert('Please insert a team name');
 			return;
 		}
 		if (currentTeam._id) {
-			saveTeam(currentTeam._id);
-		} else saveTeam();
+			saveTeam(currentTeam._id, reset);
+		} else saveTeam(null, reset);
 	};
 
 	const saveAndCloseHandler = () => {
-		saveTeamHandler();
+		saveTeamHandler(true);
 		saveAndClose();
 	};
 	return (
