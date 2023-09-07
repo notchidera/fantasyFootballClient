@@ -46,16 +46,23 @@ function App() {
 					theme='colored'
 				/>
 				<div className=' bg-slate-700 min-h-screen w-full'>
-					<Routes>
-						<Route index element={<Home />} />
-						<Route path='/login' element={<Login key='login' type='login' />} />
-						<Route
-							path='/signup'
-							element={<Login key='signUp' type='signUp' />}
-						/>
-						<Route path='/teams' element={<Teams />} />
-						<Route path='/settings' element={<Settings />} />
-					</Routes>
+					{isLoading ? (
+						<LoadingScreen />
+					) : (
+						<Routes>
+							<Route index element={<Home />} />
+							<Route
+								path='/login'
+								element={<Login key='login' type='login' />}
+							/>
+							<Route
+								path='/signup'
+								element={<Login key='signUp' type='signUp' />}
+							/>
+							<Route path='/teams' element={<Teams />} />
+							<Route path='/settings' element={<Settings />} />
+						</Routes>
+					)}
 				</div>
 			</TeamsProvider>
 		</PlayersProvider>

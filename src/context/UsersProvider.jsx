@@ -22,7 +22,8 @@ const UsersProvider = ({ children }) => {
 				setUserSettings({ budget, players });
 				setIsLoggedIn(true);
 			} catch (err) {
-				if (err.response.status === 401) setIsLoggedIn(false);
+				//if (err.response.status === 401)
+				setIsLoggedIn(false);
 			} finally {
 				setIsLoading(false);
 			}

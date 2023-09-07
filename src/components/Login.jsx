@@ -31,7 +31,8 @@ function Login({ type }) {
 					error: {
 						render({ data }) {
 							console.log(data);
-							return data.response.data.message;
+							return 'err';
+							//data.response.data.message;
 						},
 					},
 				}
@@ -40,7 +41,8 @@ function Login({ type }) {
 			console.log(respObj);
 		} catch (err) {
 			toast.error(err);
-			setErrMsg(err.response.data.message);
+			setErrMsg('errore');
+			//setErrMsg(err.response.data.message);
 		}
 	};
 
@@ -48,7 +50,7 @@ function Login({ type }) {
 		<div className='w-full flex items-center justify-center h-screen'>
 			<form
 				onSubmit={submitHandler}
-				className='flex flex-col w-96 h-1/3 p-12 items-center justify-between shadow bg-slate-100 rounded'
+				className='flex flex-col w-96 h-[500px] p-12 items-center justify-between shadow bg-slate-100 rounded'
 			>
 				<h2 className='text-xl font-semibold'>{title}</h2>
 				<div className='flex items-center w-full flex-col justify-center gap-6'>
