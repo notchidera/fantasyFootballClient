@@ -15,7 +15,7 @@ function App() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { isLoading, isLoggedIn } = useContext(UsersContext);
-
+	console.log(process.env.NODE_ENV);
 	const isMounted = useRef(false);
 
 	useEffect(() => {

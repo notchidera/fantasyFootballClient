@@ -1,6 +1,8 @@
 import axios from 'axios';
-//const BASE_URL = 'https://fantasyfootballsquadbuilder.onrender.com';
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL =
+	process.env.NODE_ENV === 'production'
+		? 'https://fantasyfootballsquadbuilder.onrender.com'
+		: 'http://localhost:8080';
 
 const apiCall = (method, path, data) => {
 	if (data)
