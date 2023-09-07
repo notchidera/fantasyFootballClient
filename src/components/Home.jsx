@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react';
 import { TeamsContext } from '../context/TeamsProvider';
 import { PlayersContext } from '../context/PlayersProvider';
-import { Link } from 'react-router-dom';
+import { UsersContext } from '../context/UsersProvider';
+import { Link, Navigate } from 'react-router-dom';
 
 import Table from './Table';
 import UploadForm from './UploadForm';
@@ -15,6 +16,8 @@ function Home() {
 	const { setIsAdding, isAdding, setCurrentTeam, inSettings } =
 		useContext(TeamsContext);
 	const { filtered, isLoading, players } = useContext(PlayersContext);
+	const { isLoggedIn } = useContext(UsersContext);
+	//if (!isLoggedIn) window.location.replace('/login');
 
 	const [isTeamBuilderOpen, setIsTeamBuilderOpen] = useState(true);
 
@@ -26,6 +29,7 @@ function Home() {
 
 	return (
 		<div>
+			{!isLoggedIn && <Navigate to='/login' replace={true} />}
 			{
 				// CHECK IF A LIST OF PLAYERS EXISTS OR, IF FILTERS ARE APPLIED, TO
 				//RENDER HOME SCREEN. OTHERWISE RENDERS FILE UPLOAD COMPONENT

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { UsersContext } from '../context/UsersProvider';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import apiCall from '../api';
 
@@ -11,13 +11,13 @@ import { home } from '../icons/icons';
 import Accordion from './Accordion';
 
 function Settings() {
-	const { setIsLoggedIn, userSettings } = useContext(UsersContext);
+	const { isLoggedIn, setIsLoggedIn, userSettings } = useContext(UsersContext);
 
 	const logoutHandler = async () => {
 		console.log('logout');
 		try {
 			const respObj = await toast.promise(apiCall('get', '/api/users/logout'), {
-				pending: 'Verifica credenziali',
+				pending: 'Logout in corso',
 				success: `Logout effettuato con successo!`,
 				error: {
 					render({ data }) {
@@ -26,6 +26,7 @@ function Settings() {
 				},
 			});
 			setIsLoggedIn(false);
+			window.location.replace('/');
 		} catch (err) {
 			alert(err.message);
 		}
@@ -58,6 +59,7 @@ function Settings() {
 	];
 	return (
 		<div className='w-full h-screen flex items-center justify-center gap-2 flex-col text-slate-700'>
+			{!isLoggedIn && <Navigate to='/login' replace={true} />}
 			<div className='p-10 w-96  bg-slate-100 rounded flex items-center flex-col justify-center gap-10'>
 				<Accordion items={items} />
 			</div>

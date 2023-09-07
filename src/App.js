@@ -1,4 +1,10 @@
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import {
+	Routes,
+	Route,
+	useNavigate,
+	useLocation,
+	redirect,
+} from 'react-router-dom';
 import { useEffect, useContext, useRef } from 'react';
 import Home from './components/Home';
 import { UsersContext } from './context/UsersProvider';
@@ -19,15 +25,14 @@ function App() {
 	console.log(isLoggedIn);
 	useEffect(() => {
 		if (isMounted.current) {
-			if (isLoggedIn) {
-				navigate(
-					location.pathname === '/login' || location.pathname === '/signup'
-						? '/'
-						: -1
-				);
-			} else {
-				navigate('/login');
-			}
+			// { navigate(
+			// 	location.pathname === '/login' || location.pathname === '/signup'
+			// 		? '/'
+			// 		: -1
+			// );
+			// } else {
+			// 	redirect('/login');
+			// }
 		} else isMounted.current = true;
 	}, [isLoggedIn]);
 
@@ -49,10 +54,7 @@ function App() {
 						<LoadingScreen />
 					) : (
 						<Routes>
-							<Route
-								index
-								element={!isLoggedIn ? <Login type='login' /> : <Home />}
-							/>
+							<Route index element={<Home />} />
 							<Route
 								path='/login'
 								element={<Login key='login' type='login' />}

@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { TeamsContext } from '../context/TeamsProvider';
-import { Link } from 'react-router-dom';
+import { UsersContext } from '../context/UsersProvider';
+import { Link, Navigate } from 'react-router-dom';
 import RoundedButton from './RoundedButton';
 import { home, close, edit } from '../icons/icons';
 import TeamView from './TeamView';
@@ -8,7 +9,7 @@ import Accordion from './Accordion';
 
 function Teams() {
 	const { allTeams, deleteTeam, editTeam } = useContext(TeamsContext);
-	console.log(allTeams);
+	const { isLoggedIn } = useContext(UsersContext);
 	const items = allTeams.map((team) => ({
 		id: team._id,
 		title: <div>{team.name}</div>,
@@ -34,6 +35,7 @@ function Teams() {
 
 	return (
 		<div className='gap-10 flex items-center justify-center w-full lg:p-10 p-3 '>
+			{!isLoggedIn && <Navigate to='/login' replace={true} />}
 			<div className='lg:w-2/3 w-full'>
 				{allTeams.length > 0 && <Accordion items={items} />}
 				<div className='fixed flex flex-col gap-4 top-1 left-1 md:top-auto md:left-auto md:bottom-6 md:right-6'>

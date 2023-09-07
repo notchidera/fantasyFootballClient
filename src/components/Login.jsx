@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { UsersContext } from '../context/UsersProvider';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import apiCall from '../api';
 import Button from './Button';
@@ -11,9 +11,9 @@ function Login({ type }) {
 		password: '',
 		passwordConfirm: '',
 	});
-
 	const [errMsg, setErrMsg] = useState('');
-	const { setIsLoggedIn } = useContext(UsersContext);
+	const { isLoggedIn, setIsLoggedIn } = useContext(UsersContext);
+	//if (isLoggedIn) window.location.replace('/');
 
 	const title = type[0].toUpperCase() + type.slice(1);
 
@@ -31,23 +31,22 @@ function Login({ type }) {
 					error: {
 						render({ data }) {
 							console.log(data);
-							return 'err';
-							//data.response.data.message;
+							return data.response.data.message;
 						},
 					},
 				}
 			);
 			setIsLoggedIn(true);
-			console.log(respObj);
 		} catch (err) {
 			toast.error(err);
 			setErrMsg('errore');
-			//setErrMsg(err.response.data.message);
+			setErrMsg(err.response.data.message);
 		}
 	};
 
 	return (
 		<div className='w-full flex items-center justify-center h-screen'>
+			{isLoggedIn && <Navigate to='/' replace={true} />}
 			<form
 				onSubmit={submitHandler}
 				className='flex flex-col w-96 h-[500px] p-12 items-center justify-between shadow bg-slate-100 rounded'
