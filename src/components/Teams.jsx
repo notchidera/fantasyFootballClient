@@ -3,6 +3,7 @@ import { TeamsContext } from '../context/TeamsProvider';
 import { UsersContext } from '../context/UsersProvider';
 import { Link, Navigate } from 'react-router-dom';
 import RoundedButton from './RoundedButton';
+import NavigationFooter from './NavigationFooter';
 import { home, close, edit, settings } from '../icons/icons';
 import TeamView from './TeamView';
 import Accordion from './Accordion';
@@ -39,14 +40,7 @@ function Teams() {
 			<div className='lg:w-2/3 w-full'>
 				{allTeams.length > 0 && <Accordion items={items} />}
 			</div>
-			<div className='fixed bg-slate-700 flex w-full items-center justify-center gap-4 bottom-0 p-4'>
-				<Link to='/'>
-					<RoundedButton icon={home} size='lg' color='light' />
-				</Link>
-				<Link to='/settings'>
-					<RoundedButton icon={settings} size='lg' color='light' />
-				</Link>
-			</div>
+			<NavigationFooter />
 		</div>
 	);
 }

@@ -5,9 +5,10 @@ import { toast } from 'react-toastify';
 import apiCall from '../api';
 
 import UploadForm from './UploadForm';
+import NavigationFooter from './NavigationFooter';
 import RoundedButton from './RoundedButton';
 import Setting from './Setting';
-import { home } from '../icons/icons';
+import { home, list } from '../icons/icons';
 import Accordion from './Accordion';
 
 function Settings() {
@@ -63,11 +64,7 @@ function Settings() {
 			<div className='p-10 w-96  bg-slate-100 rounded flex items-center flex-col justify-center gap-10'>
 				<Accordion items={items} />
 			</div>
-			<div className='fixed flex flex-col gap-4 top-1 left-1 md:top-auto md:left-auto md:bottom-6 md:right-6'>
-				<Link to='/'>
-					<RoundedButton icon={home} size='lg' color='light' />
-				</Link>
-			</div>
+			<NavigationFooter />
 		</div>
 	);
 }

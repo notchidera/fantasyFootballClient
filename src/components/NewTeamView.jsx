@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { TeamsContext } from '../context/TeamsProvider';
+import { toast } from 'react-toastify';
 import RoundedButton from './RoundedButton';
 import TeamView from './TeamView';
 import Button from './Button';
@@ -10,17 +11,20 @@ function NewTeamView({ saveAndClose, setIsTeamBuilderOpen }) {
 
 	const saveTeamHandler = (reset) => {
 		if (!currentTeam.name.trim()) {
-			alert('Please insert a team name');
-			return;
+			toast.error('Inserisci un nome per il tuo team prima di salvare!');
+			return false;
 		}
 		if (currentTeam._id) {
 			saveTeam(currentTeam._id, reset);
-		} else saveTeam(null, false);
+			return true;
+		} else {
+			saveTeam(null, false);
+			return true;
+		}
 	};
 
 	const saveAndCloseHandler = () => {
-		saveTeamHandler(true);
-		saveAndClose();
+		if (saveTeamHandler(true)) saveAndClose();
 	};
 	return (
 		<div

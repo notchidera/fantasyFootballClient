@@ -10,7 +10,8 @@ import RoundedButton from './RoundedButton';
 import LoadingScreen from './LoadingScreen';
 import NewTeamView from './NewTeamView';
 import Filter from './Filter';
-import { settings, list, users } from '../icons/icons';
+import { settings, list, users, show, hide } from '../icons/icons';
+import NavigationFooter from './NavigationFooter';
 
 function Home() {
 	const { setIsAdding, isAdding, setCurrentTeam, inSettings } =
@@ -58,7 +59,7 @@ function Home() {
 					)}
 				</div>
 			)}
-			<div className='sticky bg-slate-700 flex w-full items-center justify-center gap-4 bottom-0 p-4'>
+			<NavigationFooter>
 				{!isAdding && !inSettings && (
 					<RoundedButton
 						color='green'
@@ -72,18 +73,12 @@ function Home() {
 				{isAdding && (
 					<RoundedButton
 						onClick={() => setIsTeamBuilderOpen((prev) => !prev)}
-						color='green'
+						color={isTeamBuilderOpen ? 'red' : 'green'}
 						size={'lg'}
-						icon={users}
+						icon={isTeamBuilderOpen ? hide : show}
 					/>
 				)}
-				<Link to='/teams'>
-					<RoundedButton icon={list} size='lg' color='light' />
-				</Link>
-				<Link to='/settings'>
-					<RoundedButton icon={settings} size='lg' color='light' />
-				</Link>
-			</div>
+			</NavigationFooter>
 		</div>
 	);
 }
