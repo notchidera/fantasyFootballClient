@@ -1,10 +1,4 @@
-import {
-	Routes,
-	Route,
-	useNavigate,
-	useLocation,
-	redirect,
-} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useEffect, useContext, useRef } from 'react';
 import Home from './components/Home';
 import { UsersContext } from './context/UsersProvider';
@@ -18,21 +12,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-	const navigate = useNavigate();
-	const location = useLocation();
 	const { isLoading, isLoggedIn } = useContext(UsersContext);
 	const isMounted = useRef(false);
 	console.log(isLoggedIn);
 	useEffect(() => {
 		if (isMounted.current) {
-			// { navigate(
-			// 	location.pathname === '/login' || location.pathname === '/signup'
-			// 		? '/'
-			// 		: -1
-			// );
-			// } else {
-			// 	redirect('/login');
-			// }
 		} else isMounted.current = true;
 	}, [isLoggedIn]);
 

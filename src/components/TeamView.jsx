@@ -13,10 +13,8 @@ function TeamView({ team, isEditing }) {
 	const {
 		userSettings: { budget },
 	} = useContext(UsersContext);
-	console.log({ team });
 
 	const formattedTeam = splitPlayersByPosition(team);
-	console.log({ formattedTeam });
 
 	const expenses = {};
 	positions.forEach(

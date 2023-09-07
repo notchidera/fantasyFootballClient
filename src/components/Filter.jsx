@@ -4,7 +4,7 @@ import Input from './Input';
 import PositionIcon from './PositionIcon';
 import Search from './Search';
 import Button from './Button';
-import { filter, removeRound } from '../icons/icons';
+import { close, filter, remove, removeRound } from '../icons/icons';
 
 function Filter() {
 	const { options, positions, filterPlayers, clearFiltersHandler } =
@@ -22,47 +22,15 @@ function Filter() {
 
 	return (
 		<div
-			className={`bg-slate-700 overflow-auto p-6 md:fixed w-full top-0 z-20 shadow-xl ${
-				!isOpen && 'md:h-40'
+			className={`bg-slate-700 overflow-auto p-6 sticky w-full top-0 left-0 z-20 shadow-xl
 			}`}
 		>
-			<form
-				className='flex flex-col gap-4 items-center'
-				onSubmit={sumbitHandler}
-				autoFocus={isOpen}
-			>
-				<div className='flex gap-4'>
-					{positions.map((pos) => (
-						<PositionIcon btn={true} key={pos.label} position={pos.label} />
-					))}
-				</div>
-				{isOpen && (
-					<div className='flex items-start justify-start sticky left-0 flex-wrap'>
-						{options.map(
-							(option) =>
-								option.value !== 'name' &&
-								option.value !== 'team' &&
-								option.value !== 'position' && (
-									<Input key={option.value} option={option} />
-								)
-						)}
-					</div>
-				)}
-				<div className='flex flex-col md:flex-row gap-10'>
-					<Search />
-					<Button color={'green'} content={'Filter'} icon={filter} />
-					<Button
-						color={'light'}
-						content={'Clear filters'}
-						icon={removeRound}
-						onClick={clearFiltersHandler}
-						type='button'
-					/>
-				</div>
+			<div className='flex items-center mb-4 gap-4 w-full justify-center'>
+				<Search />{' '}
 				<button
 					type='button'
 					onClick={advancedFiltersHandler}
-					className='text-xs flex gap-2 items-center text-slate-100'
+					className='text-xs md:text-base flex gap-2 items-center text-slate-100'
 				>
 					Advanced filters{' '}
 					{isOpen ? (
@@ -97,7 +65,40 @@ function Filter() {
 						</svg>
 					)}
 				</button>
-			</form>
+				<Button
+					color={'light'}
+					content={'Clear'}
+					icon={close}
+					onClick={clearFiltersHandler}
+					type='button'
+				/>
+			</div>
+			{isOpen && (
+				<form
+					className='flex flex-col gap-4 justify-center items-center'
+					onSubmit={sumbitHandler}
+					autoFocus={isOpen}
+				>
+					<div className='flex flex-col md:flex-row items-start justify-start sticky left-0 md:flex-wrap'>
+						{options.map(
+							(option) =>
+								option.value !== 'name' &&
+								option.value !== 'team' &&
+								option.value !== 'position' && (
+									<Input key={option.value} option={option} />
+								)
+						)}
+					</div>
+					<div className='flex gap-6 items-center '>
+						<div className='flex gap-4 items-center'>
+							{positions.map((pos) => (
+								<PositionIcon btn={true} key={pos.label} position={pos.label} />
+							))}
+						</div>
+						<Button color={'green'} content={'Filter'} icon={filter} />
+					</div>
+				</form>
+			)}
 		</div>
 	);
 }

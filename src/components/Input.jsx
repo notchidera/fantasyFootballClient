@@ -5,7 +5,7 @@ function Input({ option }) {
 	const { maxOptions } = useContext(PlayersContext);
 	const [iptVal, setIptValue] = useState('');
 	return (
-		<div className='flex gap-2 items-center justify-between w-64 border-r border-slate-100 p-6 text-xs'>
+		<div className='flex gap-2 items-center justify-between w-64  md:border-r border-slate-100 p-3 md:p-6 text-xs md:text-sm'>
 			<label className=' text-slate-100 outline-none'>{option.label}</label>
 			<input
 				type='number'

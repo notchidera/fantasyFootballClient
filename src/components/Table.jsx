@@ -8,18 +8,20 @@ function Table() {
 	const { players, options } = useContext(PlayersContext);
 
 	return (
-		<table className='overflow-x-scroll md:mt-40  bg-slate-700 text-slate-100'>
-			<tbody>
-				<tr>
-					{options.map((option) => (
-						<TableColumnHeader key={option.value} option={option} />
+		<div className='w-full xl:flex xl:items-center xl:justify-center overflow-x-scroll text-sm md:text-md'>
+			<table className='overflow-x-scroll table-auto  bg-slate-700 text-slate-100'>
+				<tbody>
+					<tr>
+						{options.map((option) => (
+							<TableColumnHeader key={option.value} option={option} />
+						))}
+					</tr>
+					{players.map((player) => (
+						<Player key={player.Id} player={player} />
 					))}
-				</tr>
-				{players.map((player) => (
-					<Player key={player.Id} player={player} />
-				))}
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	);
 }
 

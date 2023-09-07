@@ -10,16 +10,15 @@ import RoundedButton from './RoundedButton';
 import LoadingScreen from './LoadingScreen';
 import NewTeamView from './NewTeamView';
 import Filter from './Filter';
-import { settings, home, openModal, list, users } from '../icons/icons';
+import { settings, list, users } from '../icons/icons';
 
 function Home() {
 	const { setIsAdding, isAdding, setCurrentTeam, inSettings } =
 		useContext(TeamsContext);
 	const { filtered, isLoading, players } = useContext(PlayersContext);
 	const { isLoggedIn } = useContext(UsersContext);
-	//if (!isLoggedIn) window.location.replace('/login');
-
-	const [isTeamBuilderOpen, setIsTeamBuilderOpen] = useState(true);
+	const [isTeamBuilderOpen, setIsTeamBuilderOpen] = useState(false);
+	console.log(isTeamBuilderOpen);
 
 	const saveAndClose = () => {
 		setIsAdding(false);
@@ -35,10 +34,13 @@ function Home() {
 				//RENDER HOME SCREEN. OTHERWISE RENDERS FILE UPLOAD COMPONENT
 			}
 			{players.length > 0 || filtered === true ? (
-				<div className='relative w-screen flex flex-col md:flex-row items-center justify-center text-slate-700'>
+				<div className='relative w-full flex flex-col  items-center justify-center text-slate-700'>
 					<Filter key={filtered} />
 					{isAdding && isTeamBuilderOpen && (
-						<NewTeamView saveAndClose={saveAndClose} />
+						<NewTeamView
+							setIsTeamBuilderOpen={setIsTeamBuilderOpen}
+							saveAndClose={saveAndClose}
+						/>
 					)}
 					{isLoading ? <LoadingScreen /> : <Table isAdding={isAdding} />}
 				</div>
@@ -56,11 +58,14 @@ function Home() {
 					)}
 				</div>
 			)}
-			<div className='fixed flex flex-col gap-4 top-1 left-1 md:top-auto md:left-auto md:bottom-6 md:right-6'>
+			<div className='sticky bg-slate-700 flex w-full items-center justify-center gap-4 bottom-0 p-4'>
 				{!isAdding && !inSettings && (
 					<RoundedButton
 						color='green'
-						onClick={() => setIsAdding(true)}
+						onClick={() => {
+							setIsAdding(true);
+							setIsTeamBuilderOpen(true);
+						}}
 						size={'lg'}
 					/>
 				)}
