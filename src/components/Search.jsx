@@ -1,10 +1,16 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { PlayersContext } from '../context/PlayersProvider';
 
 function Search() {
-	const { searchPlayer } = useContext(PlayersContext);
+	const { searchPlayer, filtered } = useContext(PlayersContext);
+	const [val, setVal] = useState('');
+
+	useEffect(() => {
+		if (filtered === false) setVal('');
+	}, [filtered]);
 
 	const searchHandler = (e) => {
+		setVal(e.target.value);
 		searchPlayer(e.target.value);
 	};
 	return (
@@ -27,7 +33,8 @@ function Search() {
 			<input
 				onChange={searchHandler}
 				className='outline-none bg-slate-100 w-full'
-			></input>
+				value={val}
+			/>
 		</div>
 	);
 }

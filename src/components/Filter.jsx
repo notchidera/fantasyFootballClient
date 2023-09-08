@@ -4,7 +4,7 @@ import Input from './Input';
 import PositionIcon from './PositionIcon';
 import Search from './Search';
 import Button from './Button';
-import { close, filter, remove, removeRound } from '../icons/icons';
+import { close, filter } from '../icons/icons';
 
 function Filter() {
 	const { options, positions, filterPlayers, clearFiltersHandler } =
@@ -26,7 +26,7 @@ function Filter() {
 			}`}
 		>
 			<div className='flex items-center mb-4 gap-4 w-full justify-center'>
-				<Search />{' '}
+				<Search />
 				<button
 					type='button'
 					onClick={advancedFiltersHandler}

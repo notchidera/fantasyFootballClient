@@ -36,7 +36,7 @@ function Home() {
 			}
 			{players.length > 0 || filtered === true ? (
 				<div className='relative w-full flex flex-col  items-center justify-center text-slate-700'>
-					<Filter key={filtered} />
+					<Filter />
 					{isAdding && isTeamBuilderOpen && (
 						<NewTeamView
 							setIsTeamBuilderOpen={setIsTeamBuilderOpen}

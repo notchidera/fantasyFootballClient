@@ -28,7 +28,7 @@ function NewTeamView({ saveAndClose, setIsTeamBuilderOpen }) {
 	};
 	return (
 		<div
-			className={`w-full z-20 md:w-2/3 2xl:w-1/3 3xl:w-1/4 overflow-scroll fixed inset-0 md:right-0 md:left-auto md:bottom-auto md:top-1/4 bg-slate-100 p-2 text-sm md:rounded shadow flex flex-col gap-4`}
+			className={`w-full z-20 lg:w-2/3 2xl:w-1/3 3xl:w-1/4 overflow-scroll fixed inset-0 lg:right-0 lg:left-auto lg:bottom-auto lg:top-1/4 bg-slate-100 p-2 text-sm md:rounded shadow flex flex-col gap-4`}
 		>
 			<TeamView isEditing={true} team={currentTeam} />
 
@@ -39,7 +39,7 @@ function NewTeamView({ saveAndClose, setIsTeamBuilderOpen }) {
 					content='Save and close'
 				/>
 			</div>
-			<div className='bg-slate-700 md:bg-slate-100 fixed md:absolute bottom-0 w-full left-0 p-2 flex items-center justify-center'>
+			<div className='bg-slate-700 lg:bg-slate-100 fixed md:absolute bottom-0 w-full left-0 p-2 flex items-center justify-center'>
 				{window.innerWidth < 640 ? (
 					<RoundedButton
 						onClick={() => setIsTeamBuilderOpen(false)}

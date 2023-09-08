@@ -63,6 +63,18 @@ const TeamsProvider = ({ children }) => {
 			...prev,
 			players: prev.players.filter((plyr) => plyr._id !== player._id),
 		}));
+		const toastContent = (
+			<div className='flex justify-between'>
+				{player.name} rimosso{' '}
+				<button
+					className='underline font-semibold'
+					onClick={() => addPlayer(player)}
+				>
+					Annulla
+				</button>
+			</div>
+		);
+		toast.success(toastContent);
 	};
 
 	const deleteTeam = async (teamId) => {

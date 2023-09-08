@@ -2,7 +2,8 @@ import { useContext } from 'react';
 import { PlayersContext } from '../context/PlayersProvider';
 import { TeamsContext } from '../context/TeamsProvider';
 import { UsersContext } from '../context/UsersProvider';
-import { users, money, wallet } from '../icons/icons';
+import { users, money, wallet, help } from '../icons/icons';
+import SwipeToDelete from 'react-swipe-to-delete-ios';
 
 import PositionIcon from './PositionIcon';
 
@@ -45,20 +46,19 @@ function TeamView({ team, isEditing }) {
 					{budget - totalExpenses} $
 				</span>
 			</div>
+			{isEditing && (
+				<div className='text-center h-6 group underline transition-all duration-150 relative flex gap-2 items-center justify-center'>
+					<p className='group-hover:blur-md flex items-center gap-2 transition-all duration-150'>
+						Per rimuovere un giocatore trascinalo a sinistra {help}
+					</p>
+					<img
+						className='w-32 absolute hidden group-hover:block transition-all duration-150'
+						alt='remove player gif'
+						src='./img/delete.gif'
+					/>
+				</div>
+			)}
 			<div className='flex flex-col md:flex-row w-full gap-2 '>
-				{/* <div className='flex items-center justify-start gap-6 w-full p-2'>
-					Ruolo
-					<div className='p-1 border-b w-12 md:w-20  border-slate-700/50 text-center'>
-						N
-					</div>
-					<div className='p-1 border-b w-12 md:w-20  border-slate-700/50 text-center'>
-						Costo
-					</div>
-					<div className='p-1 border-b w-12 md:w-20  border-slate-700/50 text-center'>
-						% Budget
-					</div>
-				</div> */}
-
 				{positions.map((pos) => (
 					<div
 						className='md:w-1/4 w-full bg-slate-200 rounded p-1'
@@ -81,21 +81,32 @@ function TeamView({ team, isEditing }) {
 
 						<div className='flex flex-col p-1 gap-2 flex-wrap'>
 							{formattedTeam[pos.label]?.map((player) => (
-								<div
+								<SwipeToDelete
 									key={player._id}
-									className='p-2 bg-slate-700 w-full gap-1 flex justify-between text-slate-100 rounded relative'
+									className='rounded'
+									height={isEditing ? 35 : 40}
+									deleteWidth={60}
+									disabled={!isEditing}
+									onDelete={() => removePlayer(player)}
+									onDeleteConfirm={(onSuccess, onCancel) => {
+										if (
+											window.confirm(
+												'Confermi di voler rimuovere il calciatore?'
+											)
+										)
+											onSuccess();
+										else onCancel();
+									}}
 								>
-									<p>{player.name.slice(0, 16)}</p>
-									<p> {player.pricePrediction}</p>
-									{isEditing && (
-										<button
-											onClick={() => removePlayer(player)}
-											className='w-3 h-3 bg-red-500 flex items-center justify-center absolute -top-2 right-0 text-xs text-slate-100 rounded'
-										>
-											X
-										</button>
-									)}
-								</div>
+									<div
+										className={` p-2 bg-slate-700 ${
+											isEditing && 'hover:bg-slate-800 cursor-pointer'
+										} w-full gap-1 flex justify-between text-slate-100 relative`}
+									>
+										<p>{player.name.slice(0, 16)}</p>
+										<p>{player.pricePrediction} </p>
+									</div>
+								</SwipeToDelete>
 							))}
 						</div>
 					</div>

@@ -10,7 +10,7 @@ function RoundedButton({ size, color, icon, ...rest }) {
 			styles = 'bg-slate-100 hover:bg-slate-300 text-slate-700';
 			break;
 		case 'red':
-			styles = 'bg-red-600 hover:bg-red-800 text-slate-100';
+			styles = 'bg-red-500 hover:bg-red-700 text-white';
 			break;
 		default:
 			styles = 'bg-slate-700 text-slate-100 hover:bg-slate-500';
@@ -18,7 +18,7 @@ function RoundedButton({ size, color, icon, ...rest }) {
 	return (
 		<button
 			{...rest}
-			className={`${styles} flex items-center justify-center shadow text-slate-100 ${
+			className={`${styles} flex items-center justify-center shadow ${
 				size === 'lg' ? 'h-12 w-12' : 'h-6 w-6 '
 			} rounded-full`}
 		>

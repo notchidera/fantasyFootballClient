@@ -1,9 +1,13 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { PlayersContext } from '../context/PlayersProvider';
 
 function PositionIcon({ position, btn }) {
-	const { positions } = useContext(PlayersContext);
+	const { positions, filtered } = useContext(PlayersContext);
 	const [selected, setSelected] = useState(false);
+	useEffect(() => {
+		if (filtered === false) setSelected('');
+	}, [filtered]);
+
 	let { color, active } = positions.find((pos) => pos.label === position);
 	color += ' text-slate-100';
 	active += ' text-slate-300';

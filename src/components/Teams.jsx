@@ -4,7 +4,7 @@ import { UsersContext } from '../context/UsersProvider';
 import { Link, Navigate } from 'react-router-dom';
 import RoundedButton from './RoundedButton';
 import NavigationFooter from './NavigationFooter';
-import { home, close, edit, settings } from '../icons/icons';
+import { home, close, edit, settings, users } from '../icons/icons';
 import TeamView from './TeamView';
 import Accordion from './Accordion';
 
@@ -13,7 +13,15 @@ function Teams() {
 	const { isLoggedIn } = useContext(UsersContext);
 	const items = allTeams.map((team) => ({
 		id: team._id,
-		title: <div>{team.name}</div>,
+		title: (
+			<div className='flex w-full justify-between'>
+				<p className='text-lg font-semibold'>{team.name}</p>
+				<p className='flex gap-2 items-center mr-10'>
+					{' '}
+					{team.players.length} {users}
+				</p>
+			</div>
+		),
 		content: (
 			<div
 				key={team._id}

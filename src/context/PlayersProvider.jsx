@@ -179,6 +179,7 @@ function PlayersProvider({ children }) {
 				else return false;
 			})
 		);
+		setFiltered(true);
 		toast.success('Filtri applicati', { autoClose: 1000 });
 	};
 
