@@ -77,13 +77,32 @@ const TeamsProvider = ({ children }) => {
 		toast.success(toastContent);
 	};
 
-	const deleteTeam = async (teamId) => {
-		await toast.promise(apiCall('delete', '/api/teams/' + teamId), {
+	const deleteTeam = async (team) => {
+		const toastContent = (
+			<div className='flex justify-between'>
+				{team.name} rimosso{' '}
+				<button
+					className='underline font-semibold'
+					onClick={async () => {
+						await apiCall('post', '/api/teams/', team);
+						setAllTeams(allTeams);
+					}}
+				>
+					Annulla
+				</button>
+			</div>
+		);
+		await toast.promise(apiCall('delete', '/api/teams/' + team._id), {
 			pending: 'Sto cancellando il team',
-			success: 'Team cancellato!',
+			success: {
+				render() {
+					return toastContent;
+				},
+			},
 			error: 'Qualcosa è andato storto, riprovare',
 		});
-		setAllTeams((prev) => prev.filter((team) => team._id !== teamId));
+
+		setAllTeams((prev) => prev.filter((oldTeam) => team._id !== oldTeam._id));
 	};
 
 	const saveTeam = async (id, reset) => {

@@ -11,6 +11,12 @@ import Accordion from './Accordion';
 function Teams() {
 	const { allTeams, deleteTeam, editTeam } = useContext(TeamsContext);
 	const { isLoggedIn } = useContext(UsersContext);
+
+	const deleteHandler = (team) => {
+		if (window.confirm('Confermi di voler rimuovere il team?'))
+			deleteTeam(team);
+	};
+
 	const items = allTeams.map((team) => ({
 		id: team._id,
 		title: (
@@ -32,7 +38,7 @@ function Teams() {
 						<RoundedButton icon={edit} />
 					</Link>
 					<RoundedButton
-						onClick={() => deleteTeam(team._id)}
+						onClick={() => deleteHandler(team)}
 						icon={close}
 						color='red'
 					/>
@@ -45,7 +51,7 @@ function Teams() {
 	return (
 		<div className='gap-10 flex min-h-screen items-start justify-center w-full lg:p-20 xl:p-32 p-3 '>
 			{!isLoggedIn && <Navigate to='/login' replace={true} />}
-			<div className='lg:w-2/3 w-full'>
+			<div className='lg:w-2/3 w-full mb-20 lg:mb-0'>
 				{allTeams.length > 0 && <Accordion items={items} />}
 			</div>
 			<NavigationFooter />

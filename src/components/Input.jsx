@@ -10,7 +10,7 @@ function Input({ option }) {
 	}, [filtered]);
 
 	return (
-		<div className='flex gap-2 items-center text-slate-100 justify-between w-64  md:border-r border-slate-100 p-3 md:p-6 text-xs md:text-sm  appearance-none'>
+		<div className='flex gap-2 items-center text-slate-100 justify-between w-64  md:border-r border-slate-100 p-3 md:p-6 text-xs xl:text-sm  appearance-none'>
 			<label className=' text-slate-100 outline-none'>{option.label}</label>
 			<input
 				style={{ appearance: 'none' }}

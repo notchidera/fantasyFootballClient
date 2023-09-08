@@ -67,6 +67,7 @@ function Login({ type }) {
 						placeholder='Password'
 						type='password'
 						name='password'
+						minLength={8}
 						onChange={changeHandler}
 						value={form.password}
 					/>
@@ -77,6 +78,7 @@ function Login({ type }) {
 							placeholder='Confirm Password'
 							type='password'
 							name='passwordConfirm'
+							minLength={8}
 							onChange={changeHandler}
 							value={form.passwordConfirm}
 						/>

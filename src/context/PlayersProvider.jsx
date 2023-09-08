@@ -66,27 +66,6 @@ function PlayersProvider({ children }) {
 	const getAllPlayers = async () => {
 		setIsLoading(true);
 		try {
-			// const respObj = await toast.promise(
-			// 	axios.get('http://localhost:8080/api/players', {
-			// 		withCredentials: true,
-			// 	}),
-			// 	{
-			// 		pending: {
-			// 			render() {
-			// 				return 'Recupero la lista';
-			// 			},
-			// 			toastId: 'gettingPlayers',
-			// 		},
-			// 		success: {
-			// 			render({ data }) {
-			// 				if (data.data.length > 0) return 'Lista caricata con successo';
-			// 				else return 'Benvenuto';
-			// 			},
-			// 			toastId: 'getAllPlayers',
-			// 		},
-			// 		error: 'Qualcosa è andato storto, riprovare',
-			// 	}
-			// );
 			const respObj = await toast.promise(apiCall('get', '/api/players'), {
 				pending: {
 					render() {

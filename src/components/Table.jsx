@@ -8,7 +8,7 @@ function Table() {
 	const { players, options } = useContext(PlayersContext);
 
 	return (
-		<div className='w-full xl:flex xl:items-center xl:justify-center overflow-x-scroll text-sm md:text-md'>
+		<div className='w-full xl:flex xl:items-center xl:justify-center overflow-x-scroll text-sm md:text-md mb-20'>
 			<table className='overflow-x-scroll table-auto  bg-slate-700 text-slate-100'>
 				<tbody>
 					<tr>
