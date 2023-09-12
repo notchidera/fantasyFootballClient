@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { PlayersContext } from '../context/PlayersProvider';
-import Input from './Input';
+import FilterInput from './FilterInput';
 import PositionIcon from './PositionIcon';
 import Search from './Search';
 import Button from './Button';
@@ -15,6 +15,7 @@ function Filter() {
 		const form = new FormData(e.target);
 		filterPlayers(Object.fromEntries(form));
 	};
+	///SHOWS OR HIDE THE ADVANCED FILTERS. ADVANCED FILTERS ARE SHOWN BY MAPPING OVER THE OPTIONS ARRAY
 	const advancedFiltersHandler = () => {
 		setIsOpen((prev) => !prev);
 		window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -85,7 +86,7 @@ function Filter() {
 								option.value !== 'name' &&
 								option.value !== 'team' &&
 								option.value !== 'position' && (
-									<Input key={option.value} option={option} />
+									<FilterInput key={option.value} option={option} />
 								)
 						)}
 					</div>

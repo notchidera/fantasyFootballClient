@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { TeamsContext } from '../context/TeamsProvider';
 import { PlayersContext } from '../context/PlayersProvider';
 import { UsersContext } from '../context/UsersProvider';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import Table from './Table';
 import UploadForm from './UploadForm';
@@ -10,7 +10,7 @@ import RoundedButton from './RoundedButton';
 import LoadingScreen from './LoadingScreen';
 import NewTeamView from './NewTeamView';
 import Filter from './Filter';
-import { settings, list, users, show, hide } from '../icons/icons';
+import { show, hide } from '../icons/icons';
 import NavigationFooter from './NavigationFooter';
 
 function Home() {
@@ -29,10 +29,11 @@ function Home() {
 
 	return (
 		<div>
+			{/* IF THE USER ISN'T LOGGED IN, IT REDIRECTS TO THE LOGIN PAGE */}
 			{!isLoggedIn && <Navigate to='/login' replace={true} />}
 			{
 				// CHECK IF A LIST OF PLAYERS EXISTS OR, IF FILTERS ARE APPLIED, TO
-				//RENDER HOME SCREEN. OTHERWISE RENDERS FILE UPLOAD COMPONENT
+				//RENDER HOME SCREEN. OTHERWISE RENDERS FILE UPLOAD COMPONENT. IF STILL LOADING, SHOWS THE LOADING COMPONENT
 			}
 			{players.length > 0 || filtered === true ? (
 				<div className='relative w-full flex flex-col  items-center justify-center text-slate-700'>

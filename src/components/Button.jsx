@@ -1,6 +1,9 @@
 function Button({ content, icon, color, ...rest }) {
 	let styles;
 
+	///CHANGES STYLE BASED ON THE COLOR PROP
+	///CAN RECEIVE AN ICON AS A PROP, THAT CAN BE SHOWN NEXT TO THE CONTENT
+
 	switch (color) {
 		case 'green':
 			styles = 'bg-emerald-600 hover:bg-emerald-800 text-slate-100';

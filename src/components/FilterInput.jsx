@@ -1,7 +1,9 @@
 import { useContext, useState, useEffect } from 'react';
 import { PlayersContext } from '../context/PlayersProvider';
 
-function Input({ option }) {
+///
+
+function FilterInput({ option }) {
 	const { maxOptions, filtered } = useContext(PlayersContext);
 	const [val, setVal] = useState('');
 
@@ -26,4 +28,4 @@ function Input({ option }) {
 	);
 }
 
-export default Input;
+export default FilterInput;

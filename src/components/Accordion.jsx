@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import AccordionItem from './AccordionItem';
 
 export default function Accordion({ items }) {
-	///ITEMS SHOULD BE AN ARRAY OF OBJECTS WITH ID, TITLE AND CONTENT KEYS
+	///ITEMS SHOULD BE AN ARRAY OF OBJECTS WITH ID, TITLE, CONTENT
 	const [activeElement, setActiveElement] = useState('');
 
+	///ONCLIK SETS THE ACTIVE ACCORDIONITEM
 	const handleClick = (value) => {
 		if (value === activeElement) {
 			setActiveElement('');

@@ -13,11 +13,6 @@ function UploadForm() {
 	const [file, setFile] = useState(null);
 	const { getAllPlayers } = useContext(PlayersContext);
 
-	// const changeHandler = async (e) => {
-	// 	setFile(e.target.files[0]);
-	// 	toast.info('file inserito');
-	// };
-
 	const changeHandler = (file) => {
 		setFile(file);
 		toast.info(file.name + ' caricato con successo!');
@@ -38,15 +33,12 @@ function UploadForm() {
 				{ range: 1 }
 			);
 			console.log(jsonData);
-			const respObj = await toast.promise(
-				apiCall('post', '/api/players', jsonData),
-				{
-					pending: 'Sto caricando la lista',
-					success: 'Lista caricata con successo!',
-					error:
-						'Formato lista non valido: caricare un xlsx preso da fantacalcio.it',
-				}
-			);
+			await toast.promise(apiCall('post', '/api/players', jsonData), {
+				pending: 'Sto caricando la lista',
+				success: 'Lista caricata con successo!',
+				error:
+					'Formato lista non valido: caricare un xlsx preso da fantacalcio.it',
+			});
 
 			getAllPlayers();
 		} catch (err) {
@@ -62,13 +54,6 @@ function UploadForm() {
 			className='bg-slate-100 rounded w-full flex items-center gap-4 text-center justify-center flex-col py-6'
 			onSubmit={submitHandler}
 		>
-			{/* <label
-				className=' cursor-pointer flex gap-2 items-center justify-center shadow transition-all duration-200 rounded-full p-2 px-6 md:w-40 text-center bg-violet-700 text-slate-100 hover:bg-violet-800 '
-				htmlFor='fileUpload'
-			>
-				Scegli un file
-			</label> */}
-
 			<p>
 				Seleziona un file xlsx o trascinalo nell'area sottostante per eseguire
 				l'upload. Puoi scaricare un file aggiornato{' '}
@@ -80,13 +65,6 @@ function UploadForm() {
 				>
 					dal sito ufficiale di fantacalcio.it
 				</a>
-				{/* <input
-					id='fileUpload'
-					className='invisible'
-					onChange={changeHandler}
-					type='file'
-					name='file'
-				/> */}
 			</p>
 			<FileUploader
 				onTypeError={() => toast.error('Tipo di file non supportato')}

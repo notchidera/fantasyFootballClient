@@ -51,7 +51,7 @@ function Teams() {
 	return (
 		<div className='gap-10 flex min-h-screen items-start justify-center w-full lg:p-20 xl:p-32 p-3 '>
 			{!isLoggedIn && <Navigate to='/login' replace={true} />}
-			<div className='lg:w-2/3 w-full mb-20 lg:mb-0'>
+			<div className='xl:w-3/4 2xl:w-2/3 w-full mb-20 lg:mb-0'>
 				{allTeams.length > 0 && <Accordion items={items} />}
 			</div>
 			<NavigationFooter />

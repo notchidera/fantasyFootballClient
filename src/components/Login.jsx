@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { UsersContext } from '../context/UsersProvider';
-import { Link, Navigate, redirect } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import apiCall from '../api';
 import Button from './Button';
@@ -11,41 +11,56 @@ function Login({ type }) {
 		password: '',
 		passwordConfirm: '',
 	});
-	const [errMsg, setErrMsg] = useState('');
-	const { isLoggedIn, setIsLoggedIn } = useContext(UsersContext);
-	//if (isLoggedIn) window.location.replace('/');
 
+	const { isLoggedIn, setIsLoggedIn } = useContext(UsersContext);
+	///DETERMINES THE PAGE TITLE AND THE BUTTON CONTENT
 	const title = type[0].toUpperCase() + type.slice(1);
 
 	const changeHandler = (e) => {
 		setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 	};
+
+	const throwError = (err) => {
+		let msg = err;
+		msg = msg
+			.replace('user validation failed: ', '')
+			.replace('password:', '')
+			.replace('email:', '')
+			.replace('passwordConfirm:', '');
+		if (err.includes('duplicate key error'))
+			msg = 'Indirizzo email già esistente ';
+		return msg;
+	};
 	const submitHandler = async (e) => {
 		e.preventDefault();
+		///ON SUBMISSION MAKES A POST REQUEST BASED ON TYPE PROP(SIGNUP OR LOGIN)
 		try {
-			const respObj = await toast.promise(
-				apiCall('post', `/api/users/${type}`, form),
-				{
-					pending: 'Verifica credenziali',
-					success: `${type} effettuato con successo!`,
-					error: {
-						render({ data }) {
-							console.log(data);
-							return data.response.data.message;
-						},
+			await toast.promise(apiCall('post', `/api/users/${type}`, form), {
+				pending: 'Verifica credenziali',
+				success: `${type} effettuato con successo!`,
+				error: {
+					render({ data }) {
+						console.log(data);
+						return throwError(data.response.data.message);
 					},
-				}
-			);
+					autoClose: 5000,
+					toastId: 'passErr',
+				},
+			});
 			setIsLoggedIn(true);
 		} catch (err) {
-			toast.error(err);
-			setErrMsg('errore');
-			setErrMsg(err.response.data.message);
+			toast.error(throwError(err.response.data.message), {
+				autoClose: 5000,
+				toastId: 'passErr',
+			});
 		}
 	};
 
+	///THIS COMPONENT SHOWS LOGIN OR SIGNUP FORM BASED ON THE TYPE PROP
+
 	return (
 		<div className='w-full flex items-center justify-center h-screen'>
+			{/* IF THE USER IS LOGGEDIN, IT REDIRECTS TO HOMEPAGE */}
 			{isLoggedIn && <Navigate to='/' replace={true} />}
 			<form
 				onSubmit={submitHandler}
@@ -83,16 +98,15 @@ function Login({ type }) {
 							value={form.passwordConfirm}
 						/>
 					)}
-					<p className='text-red-600'>{errMsg}</p>
 				</div>
 				<Button content={title} color='green' />
 				{type !== 'signUp' ? (
 					<Link to='/signup' className='text-blue-700'>
-						Not registered? Sign up now!
+						Non hai un account? Registrati ora!
 					</Link>
 				) : (
 					<Link className='text-blue-700' to='/login'>
-						Already registered? Login now!
+						Hai già un account? Accedi ora!
 					</Link>
 				)}
 			</form>

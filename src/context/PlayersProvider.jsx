@@ -44,10 +44,20 @@ function PlayersProvider({ children }) {
 	];
 
 	const positions = [
-		{ label: 'A', color: 'bg-red-400', active: 'bg-red-700' },
-		{ label: 'C', color: 'bg-blue-400', active: 'bg-blue-700' },
-		{ label: 'D', color: 'bg-green-400', active: 'bg-green-700' },
-		{ label: 'P', color: 'bg-amber-400', active: 'bg-amber-700' },
+		{ label: 'A', color: 'bg-red-400', active: 'bg-red-700', hex: '#fca5a5' },
+		{ label: 'C', color: 'bg-blue-400', active: 'bg-blue-700', hex: '#3b82f6' },
+		{
+			label: 'D',
+			color: 'bg-green-400',
+			active: 'bg-green-700',
+			hex: '#22c55e',
+		},
+		{
+			label: 'P',
+			color: 'bg-amber-400',
+			active: 'bg-amber-700',
+			hex: '#fcd34d',
+		},
 	];
 	const positionsLabels = positions.map((pos) => pos.label);
 
@@ -102,21 +112,20 @@ function PlayersProvider({ children }) {
 	}, [isLoggedIn, userSettings]);
 
 	const updatePlayer = async (_id, option) => {
-		const respObj = await apiCall('patch', '/api/players/' + _id, option);
+		try {
+			const respObj = await apiCall('patch', '/api/players/' + _id, option);
 
-		// const respObj = await axios.patch(
-		// 	'http://localhost:8080/api/players/' + _id,
-		// 	option,
-		// 	{ withCredentials: true }
-		// );
-		setPlayers((prev) =>
-			prev.map((player) =>
-				player._id === _id ? { ...player, option } : player
-			)
-		);
-		allPlayers.current = allPlayers.current.map((player) =>
-			player._id === _id ? respObj.data.data : player
-		);
+			setPlayers((prev) =>
+				prev.map((player) =>
+					player._id === _id ? { ...player, option } : player
+				)
+			);
+			allPlayers.current = allPlayers.current.map((player) =>
+				player._id === _id ? respObj.data.data : player
+			);
+		} catch (err) {
+			toast.error(err);
+		}
 	};
 
 	const sortPlayers = (option, isDescending) => {

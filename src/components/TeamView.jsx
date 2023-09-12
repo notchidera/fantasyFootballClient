@@ -2,9 +2,11 @@ import { useContext } from 'react';
 import { PlayersContext } from '../context/PlayersProvider';
 import { TeamsContext } from '../context/TeamsProvider';
 import { UsersContext } from '../context/UsersProvider';
-import { users, money, wallet, help } from '../icons/icons';
-import SwipeToDelete from 'react-swipe-to-delete-ios';
+import { users, money, wallet, help, pieChart } from '../icons/icons';
 
+import SwipeToDelete from 'react-swipe-to-delete-ios';
+import Chart from './Chart';
+import RoundedButton from './RoundedButton';
 import PositionIcon from './PositionIcon';
 
 function TeamView({ team, isEditing }) {
@@ -22,42 +24,64 @@ function TeamView({ team, isEditing }) {
 		(position) =>
 			(expenses[position.label] = sumPrice(position.label, formattedTeam))
 	);
-
 	const totalExpenses = expenses?.P + expenses?.A + expenses?.C + expenses?.D;
+
 	return (
 		<>
-			<div className='flex gap-4 items-center justify-center  text-slate-700'>
-				{isEditing ? (
-					<input
-						required
-						value={team.name}
-						onChange={(e) =>
-							setCurrentTeam((prev) => ({ ...prev, name: e.target.value }))
-						}
-						placeholder='Team name'
-						className='p-2 rounded-full border border-slate-400 outline-none'
-						type='text'
-					/>
-				) : (
-					<h3 className='font-semibold text-lg'>Name: {team.name}</h3>
-				)}
-				<span className='p-2 flex items-center gap-2 font-semibold text-lg rounded'>
-					{wallet}
-					{budget - totalExpenses} $
-				</span>
-			</div>
-			{isEditing && (
-				<div className='text-center h-6 group underline transition-all duration-150 relative flex gap-2 items-center justify-center'>
-					<p className='group-hover:blur-md flex items-center gap-2 transition-all duration-150'>
-						Per rimuovere un giocatore trascinalo a sinistra {help}
-					</p>
-					<img
-						className='w-32 absolute hidden group-hover:block transition-all duration-150'
-						alt='remove player gif'
-						src='./img/delete.gif'
-					/>
+			<div className='flex relative items-center justify-center w-full'>
+				<div className='flex flex-col w-full'>
+					<div className='flex gap-4 w-full items-center justify-center  text-slate-700'>
+						{isEditing ? (
+							<>
+								<div className='group'>
+									<RoundedButton icon={pieChart}></RoundedButton>
+									<div className=' hidden group-hover:block absolute left-32 top-10 z-50 bg-slate-700 p-20 rounded shadow-3xl shadow-slate-100 '>
+										<Chart expenses={expenses} totalExpenses={totalExpenses} />
+									</div>
+								</div>
+								<input
+									required
+									value={team.name}
+									onChange={(e) =>
+										setCurrentTeam((prev) => ({
+											...prev,
+											name: e.target.value,
+										}))
+									}
+									placeholder='Team name'
+									className='p-2 lg:p-1 2xl:p-2 rounded-full border border-slate-400 outline-none'
+									type='text'
+								/>
+							</>
+						) : (
+							<h3 className='font-semibold text-lg'>Name: {team.name}</h3>
+						)}
+						<span className='p-2 flex items-center gap-2 font-semibold text-lg lg:text-sm 2xl:text-lg rounded'>
+							{wallet}
+							{budget - totalExpenses} $
+						</span>
+					</div>
+					{!isEditing && (
+						<div
+							className={`w-full flex items-center bg-slate-700 p-6 h-72 justify-center`}
+						>
+							<Chart expenses={expenses} totalExpenses={totalExpenses} />
+						</div>
+					)}
+					{isEditing && (
+						<div className='text-center h-6 group underline transition-all duration-150 relative flex gap-2 items-center justify-center'>
+							<p className='group-hover:blur-md flex text-sm items-center gap-2 transition-all duration-150'>
+								Per rimuovere un giocatore trascinalo a sinistra {help}
+							</p>
+							<img
+								className='w-32 absolute hidden group-hover:block transition-all duration-150'
+								alt='remove player gif'
+								src='./img/delete.gif'
+							/>
+						</div>
+					)}
 				</div>
-			)}
+			</div>
 			<div className='flex flex-col md:flex-row w-full gap-2 '>
 				{positions.map((pos) => (
 					<div
@@ -66,7 +90,7 @@ function TeamView({ team, isEditing }) {
 					>
 						<div className='flex items-center justify-between gap-2 w-full p-2'>
 							<PositionIcon key={pos.label} position={pos.label} />
-							<div className='p-1 text-lg text-center flex items-center gap-2 justify-center'>
+							<div className='p-1 text-lg lg:text-sm 2xl:text-lg text-center flex items-center gap-2 justify-center'>
 								{formattedTeam[pos.label]?.length || 0}
 								{users}
 							</div>
