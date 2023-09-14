@@ -5,10 +5,11 @@ function Search() {
 	const { searchPlayer, filtered } = useContext(PlayersContext);
 	const [val, setVal] = useState('');
 
+	//IT CLEANS THE SEARCHBAR IF THE USER CLICKS ON THE "CLEAR FILTERS" BUTTON (IT CHANGES THE FILTERED VARIABLE TO FALSE)
 	useEffect(() => {
 		if (filtered === false) setVal('');
 	}, [filtered]);
-
+	///ON EACH CHANGE THE SEARCHPLAYER FUNCTION IS TRIGGERED
 	const searchHandler = (e) => {
 		setVal(e.target.value);
 		searchPlayer(e.target.value);

@@ -1,23 +1,23 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { UsersContext } from '../context/UsersProvider';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import apiCall from '../api';
+import apiCall from '../utils/api';
 
-import UploadForm from './UploadForm';
-import NavigationFooter from './NavigationFooter';
-import RoundedButton from './RoundedButton';
-import Setting from './Setting';
-import { home, list } from '../icons/icons';
-import Accordion from './Accordion';
+import UploadForm from '../components/UploadForm';
+import NavigationFooter from '../components/NavigationFooter';
+import Setting from '../components/Setting';
+import Accordion from '../components/accordion/Accordion';
 
 function Settings() {
 	const { isLoggedIn, setIsLoggedIn, userSettings } = useContext(UsersContext);
 
+	/// SENDS A REQUEST TO THE SERVER, UPDATING THE JWT TOKEN WITH AN INVALID ONE, THEN REDIRECT THE USER TO THE HOMEPAGE
+
 	const logoutHandler = async () => {
 		console.log('logout');
 		try {
-			const respObj = await toast.promise(apiCall('get', '/api/users/logout'), {
+			await toast.promise(apiCall('get', '/api/users/logout'), {
 				pending: 'Logout in corso',
 				success: `Logout effettuato con successo!`,
 				error: {
@@ -32,7 +32,7 @@ function Settings() {
 			alert(err.message);
 		}
 	};
-
+	/// LIST OF OPTIONS TO SHOW IN THE SETTINGS PAGE
 	const items = [
 		{
 			title: 'Modifica budget',
@@ -58,6 +58,7 @@ function Settings() {
 			),
 		},
 	];
+	///RENDERS THE ACCORDION COMPONENT PASSING THE ITEMS ARRAY
 	return (
 		<div className='w-full h-screen flex items-center justify-center gap-2 flex-col text-slate-700'>
 			{!isLoggedIn && <Navigate to='/login' replace={true} />}

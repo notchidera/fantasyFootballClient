@@ -6,8 +6,8 @@ import { users, money, wallet, help, pieChart } from '../icons/icons';
 
 import SwipeToDelete from 'react-swipe-to-delete-ios';
 import Chart from './Chart';
-import RoundedButton from './RoundedButton';
-import PositionIcon from './PositionIcon';
+import RoundedButton from './buttons/RoundedButton';
+import PositionIcon from './buttons/PositionButton';
 
 function TeamView({ team, isEditing }) {
 	const { positions } = useContext(PlayersContext);
@@ -17,13 +17,16 @@ function TeamView({ team, isEditing }) {
 		userSettings: { budget },
 	} = useContext(UsersContext);
 
+	///CREATES A NEW TEAM OBJECT WITH THE PLAYERS SPLIT BY POSITION (EG: {name: 'teamName', players: {P: [player 1, player2], D: [player1, player2, ...]}})
 	const formattedTeam = splitPlayersByPosition(team);
 
+	///CREATES AN EXPENSES OBJECT THAT CONTAINS INFORMATION ABOUT THE OVERALL MONEY SPENT ON THE DIFFERENT POSITION
 	const expenses = {};
 	positions.forEach(
 		(position) =>
 			(expenses[position.label] = sumPrice(position.label, formattedTeam))
 	);
+	///CALCULATES THE TOTAL EXPENSES FOR THE CURRENT TEAM
 	const totalExpenses = expenses?.P + expenses?.A + expenses?.C + expenses?.D;
 
 	return (
@@ -31,6 +34,7 @@ function TeamView({ team, isEditing }) {
 			<div className='flex relative items-center justify-center w-full'>
 				<div className='flex flex-col w-full'>
 					<div className='flex gap-4 w-full items-center justify-center  text-slate-700'>
+						{/* IF ISEDITING (THEREFORE IN THE NEWTEAMVIEW), IT RENDERS A CHART ICON THAT SHOWS THE CHART ON HOVER INSTEAD OF SHOWING IT DIRECTLY - THERE'S NO ROOM TO SHOW DIRECTLY THE CHART IN THE NEWTEAMVIEW */}
 						{isEditing ? (
 							<>
 								<div className='group'>
@@ -83,6 +87,7 @@ function TeamView({ team, isEditing }) {
 				</div>
 			</div>
 			<div className='flex flex-col md:flex-row w-full gap-2 '>
+				{/* IT ITERATES OVER THE POSITIONS ARRAY IN ORDER TO SPLIT THE PLAYERS BY POSITION IN THE TEAM VIEW. FOR EACH POSITION IT ALSO SHOWS THE EXPENSE (ABSOLUTE AND RELATIVE VALUES) AND THE NUMBER OF PLAYERS */}
 				{positions.map((pos) => (
 					<div
 						className='md:w-1/4 w-full bg-slate-200 rounded p-1'

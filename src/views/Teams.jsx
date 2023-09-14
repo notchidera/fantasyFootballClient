@@ -1,12 +1,12 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { TeamsContext } from '../context/TeamsProvider';
 import { UsersContext } from '../context/UsersProvider';
 import { Link, Navigate } from 'react-router-dom';
-import RoundedButton from './RoundedButton';
-import NavigationFooter from './NavigationFooter';
-import { home, close, edit, settings, users } from '../icons/icons';
-import TeamView from './TeamView';
-import Accordion from './Accordion';
+import RoundedButton from '../components/buttons/RoundedButton';
+import NavigationFooter from '../components/NavigationFooter';
+import { close, edit, users } from '../icons/icons';
+import TeamView from '../components/TeamView';
+import Accordion from '../components/accordion/Accordion';
 
 function Teams() {
 	const { allTeams, deleteTeam, editTeam } = useContext(TeamsContext);
@@ -16,7 +16,7 @@ function Teams() {
 		if (window.confirm('Confermi di voler rimuovere il team?'))
 			deleteTeam(team);
 	};
-
+	///CREATES AN ITEM ARRAY WITH OBJECTS CONTAINING TEAM INFORMATION, DELETE AND EDIT BUTTONS, TEAMVIEW COMPONENT. THIS ARRAY IS THEN PASSED TO THE ACCORDION COMPONENT
 	const items = allTeams.map((team) => ({
 		id: team._id,
 		title: (

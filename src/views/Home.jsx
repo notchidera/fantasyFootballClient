@@ -4,14 +4,14 @@ import { PlayersContext } from '../context/PlayersProvider';
 import { UsersContext } from '../context/UsersProvider';
 import { Navigate } from 'react-router-dom';
 
-import Table from './Table';
-import UploadForm from './UploadForm';
-import RoundedButton from './RoundedButton';
-import LoadingScreen from './LoadingScreen';
-import NewTeamView from './NewTeamView';
-import Filter from './Filter';
+import Table from '../components/table/Table';
+import UploadForm from '../components/UploadForm';
+import RoundedButton from '../components/buttons/RoundedButton';
+import LoadingScreen from '../components/LoadingScreen';
+import NewTeamView from '../components/NewTeamView';
+import Filter from '../components/Filter';
 import { show, hide } from '../icons/icons';
-import NavigationFooter from './NavigationFooter';
+import NavigationFooter from '../components/NavigationFooter';
 
 function Home() {
 	const { setIsAdding, isAdding, setCurrentTeam, inSettings } =

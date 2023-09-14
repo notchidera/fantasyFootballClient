@@ -1,0 +1,36 @@
+export const players = [
+	{
+		Id: 4661,
+		createdAt: '2023-09-12T09:05:04.372Z',
+		currentQuote: 44,
+		initialQuote: 43,
+		name: 'Osimhen',
+		position: 'A',
+		pricePrediction: 221,
+		slot: 1,
+		team: 'Napoli',
+		updatedAt: '2023-09-12T09:05:04.372Z',
+		userId: '64f85cac8c2060f94bd07a21',
+		value: 442,
+		__v: 0,
+		_id: '650029c063ea1e95eab2cd49',
+	},
+	{
+		Id: 2764,
+		createdAt: '2023-09-12T09:05:04.440Z',
+		currentQuote: 40,
+		initialQuote: 37,
+		name: 'Martinez L.',
+		position: 'A',
+		pricePrediction: 203,
+		slot: 1,
+		team: 'Inter',
+		updatedAt: '2023-09-12T09:05:04.440Z',
+		userId: '64f85cac8c2060f94bd07a21',
+		value: 405,
+		__v: 0,
+		_id: '650029c063ea1e95eab2cd4b',
+	},
+];
+export const currentTeamEmpty = { name: 'Team 1', players: [] };
+export const currentTeamWithPlayers = { name: 'Team 2', players };

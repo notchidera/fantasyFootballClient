@@ -1,18 +1,20 @@
 import { createContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import apiCall from '../api';
+import apiCall from '../utils/api';
 
 export const UsersContext = createContext();
 
 const UsersProvider = ({ children }) => {
+	///KEEPS TRACK OF THE LOGIN STATE
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	/// SAVES SOME USER SETTINGS
 	const [userSettings, setUserSettings] = useState({
 		budget: 500,
 		players: 10,
 	});
-
 	const [isLoading, setIsLoading] = useState(false);
+	/// ONMOUNT OR EVERYTIME THAT THE LOGIN STATE CHANGES, IT CHECKS IF THE USER HAS A VALID TOKEN
 	useEffect(() => {
 		const authenticate = async () => {
 			setIsLoading(true);
@@ -31,6 +33,7 @@ const UsersProvider = ({ children }) => {
 		authenticate();
 	}, [isLoggedIn]);
 
+	///UPDATES USER SETTINGS
 	const updateSetting = async (setting, value) => {
 		console.log({ setting }, { value });
 		await toast.promise(

@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
-import { PlayersContext } from '../context/PlayersProvider';
-import { UsersContext } from '../context/UsersProvider';
+import { PlayersContext } from '../../context/PlayersProvider';
+import { UsersContext } from '../../context/UsersProvider';
 import { toast } from 'react-toastify';
 
 ///SOME OPTIONS CAN BE EDITED BY THE USER, THIS COMPONENT MANAGES HOW THESE FIELDS SHOULD BEHAVE INSIDE THE MAIN TABLE
@@ -32,6 +32,7 @@ function EditableCell({ option, player }) {
 	return (
 		<form className='w-full ' onSubmit={submitHandler}>
 			<input
+				role='cell'
 				onBlur={updateHandler}
 				className='p-2 w-full bg-slate-700 text-center outline-none'
 				onChange={(e) => setVal(e.target.value)}

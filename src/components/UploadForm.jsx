@@ -1,13 +1,15 @@
 import { useState, useContext } from 'react';
 import { PlayersContext } from '../context/PlayersProvider';
 
-import apiCall from '../api';
+import apiCall from '../utils/api';
 
 import { FileUploader } from 'react-drag-drop-files';
 import * as XLSX from 'xlsx';
 import { toast } from 'react-toastify';
 
-import Button from './Button';
+import Button from './buttons/Button';
+
+///HANDLES THE UPLOAD OF A FILE AND PASSES THE EXTRACTED VALUE TO THE SERVER IN ORDER TO UPDATE THE PLAYERS LIST
 
 function UploadForm() {
 	const [file, setFile] = useState(null);
@@ -20,7 +22,7 @@ function UploadForm() {
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
-
+		///IT GETS THE XLSX FILE, PARSES IT AND SPLITS IT BY THE HEADERS OF THE SECOND ROW OF THE TABLE (RANGE 1) - THEN IT SENDS IT TO THE BACKEND
 		try {
 			const data = await file.arrayBuffer();
 			const workbook = XLSX.readFile(data);
@@ -32,7 +34,6 @@ function UploadForm() {
 				workbook.Sheets[sheet_name_list[0]],
 				{ range: 1 }
 			);
-			console.log(jsonData);
 			await toast.promise(apiCall('post', '/api/players', jsonData), {
 				pending: 'Sto caricando la lista',
 				success: 'Lista caricata con successo!',
@@ -42,7 +43,6 @@ function UploadForm() {
 
 			getAllPlayers();
 		} catch (err) {
-			console.log({ err });
 			toast.error(
 				'File non valido. Controlla che il file sia un xlsx e che abbia il formato utilizzato su fantacalcio.it',
 				{ autoClose: 5000 }

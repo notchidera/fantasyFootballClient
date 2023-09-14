@@ -1,7 +1,6 @@
 import { useContext } from 'react';
-import { PlayersContext } from '../context/PlayersProvider';
+import { PlayersContext } from '../../context/PlayersProvider';
 import Player from './Player';
-import UploadForm from './UploadForm';
 import TableColumnHeader from './TableColumnHeader';
 
 function Table() {

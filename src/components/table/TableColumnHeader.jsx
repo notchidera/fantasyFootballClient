@@ -1,7 +1,8 @@
 import { useState, useContext } from 'react';
-import { PlayersContext } from '../context/PlayersProvider';
+import { PlayersContext } from '../../context/PlayersProvider';
 
 function TableColumnHaeader({ option }) {
+	///SETS IF THE SORTING ORDER IS DESCENDING
 	const [isDescending, setIsDescending] = useState(true);
 
 	const { sortPlayers } = useContext(PlayersContext);
@@ -9,7 +10,6 @@ function TableColumnHaeader({ option }) {
 	const sortingHandler = () => {
 		sortPlayers(option.value, isDescending);
 		setIsDescending((prev) => !prev);
-		console.log(option.label);
 	};
 	return (
 		<th
@@ -22,7 +22,8 @@ function TableColumnHaeader({ option }) {
 				className='flex gap-2 w-full items-center justify-center text-center whitespace-nowrap'
 			>
 				{option.label}
-				<span onClick={sortingHandler} className='hover:text-white'>
+				{/* IT RENDERS A DIFFERENT ICON BASED ON THE SORTING ORDER - IF THERE ARE NO SORTING OPTIONS, THE ICON IS HIDDEN */}
+				<span className='hover:text-white'>
 					{isDescending ? (
 						<svg
 							xmlns='http://www.w3.org/2000/svg'

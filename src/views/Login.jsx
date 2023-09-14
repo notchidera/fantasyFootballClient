@@ -2,8 +2,8 @@ import { useState, useContext } from 'react';
 import { UsersContext } from '../context/UsersProvider';
 import { Link, Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import apiCall from '../api';
-import Button from './Button';
+import apiCall from '../utils/api';
+import Button from '../components/buttons/Button';
 
 function Login({ type }) {
 	const [form, setForm] = useState({
@@ -40,7 +40,6 @@ function Login({ type }) {
 				success: `${type} effettuato con successo!`,
 				error: {
 					render({ data }) {
-						console.log(data);
 						return throwError(data.response.data.message);
 					},
 					autoClose: 5000,

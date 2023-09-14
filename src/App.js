@@ -1,13 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect, useContext, useRef } from 'react';
-import Home from './components/Home';
+
 import { UsersContext } from './context/UsersProvider';
 import PlayersProvider from './context/PlayersProvider';
 import TeamsProvider from './context/TeamsProvider';
-import Teams from './components/Teams';
-import Login from './components/Login';
+import Home from './views/Home';
+import Teams from './views/Teams';
+import Login from './views/Login';
+import Settings from './views/Settings';
 import LoadingScreen from './components/LoadingScreen';
-import Settings from './components/Settings';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

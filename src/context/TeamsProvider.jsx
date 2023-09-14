@@ -1,22 +1,22 @@
 import { createContext, useState, useContext, useEffect } from 'react';
-import { PlayersContext } from './PlayersProvider';
 import { UsersContext } from './UsersProvider';
 import { toast } from 'react-toastify';
-import apiCall from '../api';
-import axios from 'axios';
+import apiCall from '../utils/api';
 
 export const TeamsContext = createContext();
 
 const TeamsProvider = ({ children }) => {
+	/// A FLAG THAT TELLS IF THE USER IS CURRENTLY ADDING PLAYERS TO A TEAM OR EDITING A TEAM
 	const [isAdding, setIsAdding] = useState(false);
-	const [inSettings, setInSettings] = useState(false);
 	const { isLoggedIn, userSettings } = useContext(UsersContext);
+	/// STATE VARIABLE THAT HOLDS ALL THE TEAMS BELONGING TO A USER
 	const [allTeams, setAllTeams] = useState([]);
+	/// KEEPS TRACK OF THE TEAM THAT THE USER IS CURRENTLY EDITING
 	const [currentTeam, setCurrentTeam] = useState({
 		name: '',
 		players: [],
 	});
-
+	/// GETS ALL THE TEAMS AND ASSIGNS A VALUE TO THE STATE VARIABLE
 	useEffect(() => {
 		const getAllTeams = async () => {
 			const respObj = await apiCall('get', '/api/teams');
@@ -39,8 +39,8 @@ const TeamsProvider = ({ children }) => {
 		} catch (err) {
 			console.log(err);
 		}
-	}, [isLoggedIn]);
-
+	}, [isLoggedIn, userSettings.budget]);
+	///CREATES A NEW TEAM OBJECT WITH THE PLAYERS SPLIT BY POSITION (EG: {name: 'teamName', players: {P: [player 1, player2], D: [player1, player2, ...]}})
 	const splitPlayersByPosition = (team) => {
 		let newTeam = { name: team.name, _id: team._id };
 		team.players.forEach(
@@ -51,13 +51,15 @@ const TeamsProvider = ({ children }) => {
 		);
 		return newTeam;
 	};
-
+	/// ADDS A PLAYER TO THE CURRENT TEAM
 	const addPlayer = (player) => {
 		setCurrentTeam((prev) => ({
 			...prev,
 			players: [...prev.players, player],
 		}));
 	};
+
+	/// REMOVES A PLAYER FROM THE CURRENT TEAM
 	const removePlayer = (player) => {
 		setCurrentTeam((prev) => ({
 			...prev,
@@ -76,7 +78,7 @@ const TeamsProvider = ({ children }) => {
 		);
 		toast.success(toastContent);
 	};
-
+	/// DELETES A TEAM
 	const deleteTeam = async (team) => {
 		const toastContent = (
 			<div className='flex justify-between'>
@@ -104,7 +106,7 @@ const TeamsProvider = ({ children }) => {
 
 		setAllTeams((prev) => prev.filter((oldTeam) => team._id !== oldTeam._id));
 	};
-
+	/// SAVES THE CURRENT TEAM SENDING THE DATA TO THE SERVER
 	const saveTeam = async (id, reset) => {
 		if (id) {
 			try {
@@ -151,12 +153,12 @@ const TeamsProvider = ({ children }) => {
 			}
 		}
 	};
-
+	/// CHANGES THE CURRENT TEAM WHEN THE USER CLICKS ON THE EDIT BUTTON
 	const editTeam = (team) => {
 		setCurrentTeam(team);
 		setIsAdding(true);
 	};
-
+	/// CALCULATES THE OVERALL EXPENSE FOR A CERTAIN POSITION IN A TEAM
 	const sumPrice = (position, team) => {
 		if (team[position]?.length < 1 || !team[position]) return 0;
 		return team[position]?.reduce((acc, cur) => acc + cur?.pricePrediction, 0);
@@ -176,8 +178,6 @@ const TeamsProvider = ({ children }) => {
 				allTeams,
 				deleteTeam,
 				editTeam,
-				inSettings,
-				setInSettings,
 				splitPlayersByPosition,
 			}}
 		>

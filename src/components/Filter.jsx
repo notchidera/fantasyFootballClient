@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react';
 import { PlayersContext } from '../context/PlayersProvider';
 import FilterInput from './FilterInput';
-import PositionIcon from './PositionIcon';
+import PositionIcon from './buttons/PositionButton';
 import Search from './Search';
-import Button from './Button';
+import Button from './buttons/Button';
 import { close, filter } from '../icons/icons';
 
 function Filter() {

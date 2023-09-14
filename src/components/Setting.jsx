@@ -1,6 +1,8 @@
 import { useState, useContext } from 'react';
 import { UsersContext } from '../context/UsersProvider';
 
+///HANDLES A SINGLE SETTING UPDATE IN THE SETTINGS VIEW
+
 function Setting({ setting, value }) {
 	const [val, setVal] = useState(value);
 	const { updateSetting } = useContext(UsersContext);

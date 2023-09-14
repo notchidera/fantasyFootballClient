@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import RoundedButton from './RoundedButton';
+import RoundedButton from './buttons/RoundedButton';
 import { home, list, settings } from '../icons/icons';
 function NavigationFooter({ children }) {
 	return (

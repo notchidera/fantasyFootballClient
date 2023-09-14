@@ -1,4 +1,5 @@
-import { addLarge, addSmall } from '../icons/icons';
+import { addLarge, addSmall } from '../../icons/icons';
+//ROUNDEDN BUTTON USED IN THE APP - BY THE FAULT IT USES A "+" ICON BUT IT CAN BE CHANGED BY PASSING ANOTHER ICON AS A PROP. STYLE AND SIZE ICONS CAN BE USED TO CHANGE THE BUTTON LOOK. IT ALSO ACCEPTS OTHER PROPS, SUCH AS EVENTHANDLERS
 
 function RoundedButton({ size, color, icon, ...rest }) {
 	let styles;

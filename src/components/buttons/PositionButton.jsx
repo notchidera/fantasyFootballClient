@@ -1,8 +1,9 @@
 import { useContext, useState, useEffect } from 'react';
-import { PlayersContext } from '../context/PlayersProvider';
+import { PlayersContext } from '../../context/PlayersProvider';
 
-function PositionIcon({ position, btn }) {
+function PositionButton({ position, btn }) {
 	const { positions, filtered } = useContext(PlayersContext);
+	///THE SELECTED STATE VARIABLE IS USED WHEN FILTERING PLAYERS BY POSITION - USED TO CONTROL THE CHECKBOX INPUT
 	const [selected, setSelected] = useState(false);
 	useEffect(() => {
 		if (filtered === false) setSelected('');
@@ -11,9 +12,9 @@ function PositionIcon({ position, btn }) {
 	let { color, active } = positions.find((pos) => pos.label === position);
 	color += ' text-slate-100';
 	active += ' text-slate-300';
-
+	//CHECKS IF THE POSITION ICON SHOULD BE A BUTTON OR A DIV
 	const Element = btn ? 'button' : 'div';
-
+	///IF THE ELEMENT IS A BUTTON, IT HIDES A CHECKBOX THAT IS CHECKED WHEN THE USER CLICKS ON THE BUTTON
 	return (
 		<Element
 			onClick={() => setSelected((prev) => !prev)}
@@ -37,4 +38,4 @@ function PositionIcon({ position, btn }) {
 	);
 }
 
-export default PositionIcon;
+export default PositionButton;

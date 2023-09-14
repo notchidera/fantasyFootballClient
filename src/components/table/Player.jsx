@@ -1,15 +1,17 @@
 import { useContext } from 'react';
-import { PlayersContext } from '../context/PlayersProvider';
-import { TeamsContext } from '../context/TeamsProvider';
+import { PlayersContext } from '../../context/PlayersProvider';
+import { TeamsContext } from '../../context/TeamsProvider';
 import EditableCell from './EditableCell';
-import RoundedButton from './RoundedButton';
-import { remove } from '../icons/icons';
+import RoundedButton from '../buttons/RoundedButton';
+import { remove } from '../../icons/icons';
+
+///SHOWS A SINGLE PLAYER IN THE TABLE
 
 function Player({ player }) {
 	const { options, positions, editableOptions } = useContext(PlayersContext);
 	const { isAdding, addPlayer, currentTeam, removePlayer } =
 		useContext(TeamsContext);
-
+	///DETERMINES THE LOOK OF THE THE MANAGE PLAYER BUTTON (IF ISADDING IS TRUE > THE USER IS CURRENTLY ADDING PLAYERS TO A TEAM OR IS EDITING A TEAM)
 	const managePlayerButton = currentTeam.players?.find(
 		(pl) => player._id === pl._id
 	) ? (
@@ -26,7 +28,7 @@ function Player({ player }) {
 			size='sm'
 		/>
 	);
-
+	/* ITERATES OVER THE OPTIONS ARRAY,IF CURRENT OPTION IS NAME, IT GIVES STICKY POSITION TO THE CELL - IF IT'S POSITION IT DETERMINES THE LOOK OF THE POSITION ICON - IF IT'S ONE OF THE EDITABE OPTIONS, IT RENDERS THE PROPER COMPONENT */
 	return (
 		<tr>
 			{options.map((option) => (

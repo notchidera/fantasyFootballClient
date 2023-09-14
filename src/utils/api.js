@@ -1,4 +1,7 @@
 import axios from 'axios';
+
+/// GLOBAL FUNCTION THAT MANAGES HTTP REQUESTS, TARGET URL CHANGES BASED ON ENVIROMENT VARIABLE
+
 const BASE_URL =
 	process.env.NODE_ENV === 'production'
 		? 'https://fantasyfootballsquadbuilder.onrender.com'
