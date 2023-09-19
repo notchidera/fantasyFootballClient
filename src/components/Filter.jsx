@@ -14,11 +14,11 @@ function Filter() {
 		e.preventDefault();
 		const form = new FormData(e.target);
 		filterPlayers(Object.fromEntries(form));
+		window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 	};
 	///SHOWS OR HIDE THE ADVANCED FILTERS. ADVANCED FILTERS ARE SHOWN BY MAPPING OVER THE OPTIONS ARRAY
 	const advancedFiltersHandler = () => {
 		setIsOpen((prev) => !prev);
-		window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 	};
 
 	return (

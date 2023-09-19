@@ -60,9 +60,9 @@ function Settings() {
 	];
 	///RENDERS THE ACCORDION COMPONENT PASSING THE ITEMS ARRAY
 	return (
-		<div className='w-full h-screen flex items-center justify-center gap-2 flex-col text-slate-700'>
+		<div className='w-full p-6 h-screen flex items-center justify-center gap-2 flex-col text-slate-700'>
 			{!isLoggedIn && <Navigate to='/login' replace={true} />}
-			<div className='p-10 w-96  bg-slate-100 rounded flex items-center flex-col justify-center gap-10'>
+			<div className='p-10 w-96 text-sm xl:text-base max-h-lg mb-20  bg-slate-100 rounded flex items-center flex-col justify-center gap-10'>
 				<Accordion items={items} />
 			</div>
 			<NavigationFooter />

@@ -45,6 +45,7 @@ function TeamView({ team, isEditing }) {
 								</div>
 								<input
 									required
+									data-cy='teamName'
 									value={team.name}
 									onChange={(e) =>
 										setCurrentTeam((prev) => ({
@@ -53,7 +54,7 @@ function TeamView({ team, isEditing }) {
 										}))
 									}
 									placeholder='Team name'
-									className='p-2 lg:p-1 2xl:p-2 rounded-full border border-slate-400 outline-none'
+									className='p-2 text-center lg:p-1 2xl:p-2 rounded-full border border-slate-400 outline-none'
 									type='text'
 								/>
 							</>
@@ -101,14 +102,7 @@ function TeamView({ team, isEditing }) {
 							</div>
 						</div>
 
-						<p className='p-1 mb-2  text-center flex items-center gap-2 justify-center'>
-							{money} {expenses[pos.label]}$/{' '}
-							<span className='font-semibold'>
-								{Math.round(expenses[pos.label] / (budget / 100)) || 0}%
-							</span>
-						</p>
-
-						<div className='flex flex-col p-1 gap-2 flex-wrap'>
+						<div className='flex flex-col p-1 gap-2 flex-wrap flex-grow-1 '>
 							{formattedTeam[pos.label]?.map((player) => (
 								<SwipeToDelete
 									key={player._id}
@@ -132,12 +126,18 @@ function TeamView({ team, isEditing }) {
 											isEditing && 'hover:bg-slate-800 cursor-pointer'
 										} w-full gap-1 flex justify-between text-slate-100 relative`}
 									>
-										<p>{player.name.slice(0, 16)}</p>
+										<p data-cy={player.name}>{player.name.slice(0, 16)}</p>
 										<p>{player.pricePrediction} </p>
 									</div>
 								</SwipeToDelete>
 							))}
 						</div>
+						<p className='p-1 mb-2  text-center flex items-center gap-2 justify-center'>
+							{money} {expenses[pos.label]}$/{' '}
+							<span className='font-semibold'>
+								{Math.round(expenses[pos.label] / (budget / 100)) || 0}%
+							</span>
+						</p>
 					</div>
 				))}
 			</div>

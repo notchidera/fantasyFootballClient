@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
-import { useEffect, useContext, useRef } from 'react';
+import { useEffect, useContext, useRef, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { UsersContext } from './context/UsersProvider';
 import PlayersProvider from './context/PlayersProvider';
@@ -9,13 +11,10 @@ import Teams from './views/Teams';
 import Login from './views/Login';
 import Settings from './views/Settings';
 import LoadingScreen from './components/LoadingScreen';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 	const { isLoading, isLoggedIn } = useContext(UsersContext);
 	const isMounted = useRef(false);
-	console.log(isLoggedIn);
 	useEffect(() => {
 		if (isMounted.current) {
 		} else isMounted.current = true;
@@ -34,6 +33,7 @@ function App() {
 					draggable
 					theme='colored'
 				/>
+
 				<div className=' bg-slate-700 min-h-screen w-full'>
 					{isLoading ? (
 						<LoadingScreen />

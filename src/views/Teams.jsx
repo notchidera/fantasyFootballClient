@@ -34,10 +34,15 @@ function Teams() {
 				className='overflow-scroll w-full relative p-1 bg-slate-100 md:px-4 md:py-8  rounded flex flex-col gap-4'
 			>
 				<div className='absolute right-1 top-1 flex gap-2'>
-					<Link onClick={() => editTeam(team)} to='/'>
+					<Link
+						data-cy={`edit-${team.name}`}
+						onClick={() => editTeam(team)}
+						to='/'
+					>
 						<RoundedButton icon={edit} />
 					</Link>
 					<RoundedButton
+						data-cy={`delete-${team.name}`}
 						onClick={() => deleteHandler(team)}
 						icon={close}
 						color='red'

@@ -68,6 +68,7 @@ function Login({ type }) {
 				<h2 className='text-xl font-semibold'>{title}</h2>
 				<div className='flex items-center w-full flex-col justify-center gap-6'>
 					<input
+						data-cy='email'
 						className='p-2 rounded-full bg-slate-200 text-center w-full border boder-slate-400 outline-none'
 						placeholder='Email'
 						name='email'
@@ -77,6 +78,7 @@ function Login({ type }) {
 					/>
 
 					<input
+						data-cy='password'
 						className='p-2 rounded-full bg-slate-200 text-center w-full border boder-slate-400 outline-none'
 						placeholder='Password'
 						type='password'
@@ -88,6 +90,7 @@ function Login({ type }) {
 
 					{type === 'signUp' && (
 						<input
+							data-cy='passwordConfirm'
 							className='p-2 rounded-full bg-slate-200 text-center w-full border boder-slate-400 outline-none mb-6'
 							placeholder='Confirm Password'
 							type='password'

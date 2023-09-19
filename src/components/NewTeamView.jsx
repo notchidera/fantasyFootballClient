@@ -31,6 +31,7 @@ function NewTeamView({ saveAndClose, setIsTeamBuilderOpen }) {
 	};
 	return (
 		<div
+			data-cy='newTeamView'
 			className={`w-full z-20 lg:z-10 lg:w-7/12 2xl:w-1/3 3xl:w-1/4 overflow-scroll fixed inset-0 lg:right-0 lg:left-auto lg:bottom-auto lg:top-24 2xl:top-36  bg-slate-100 p-2 text-sm md:rounded shadow flex flex-col gap-4`}
 		>
 			{/* SHOWS THE TEAMVIEW PASSING ISEDITING PROP AND CURRENTTEAM. ISEDITING TELLS THE TEAMVIEW COMPONENT TO SHOW THE PROPER TEAMVIEW */}
@@ -50,6 +51,7 @@ function NewTeamView({ saveAndClose, setIsTeamBuilderOpen }) {
 				</div>
 				{window.innerWidth < 768 ? (
 					<RoundedButton
+						data-cy='hideBtn'
 						onClick={() => setIsTeamBuilderOpen(false)}
 						icon={hide}
 						color='light'
@@ -57,6 +59,7 @@ function NewTeamView({ saveAndClose, setIsTeamBuilderOpen }) {
 					/>
 				) : (
 					<RoundedButton
+						data-cy='hideBtn'
 						onClick={() => setIsTeamBuilderOpen(false)}
 						icon={hide}
 						color='red'

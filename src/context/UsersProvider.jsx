@@ -20,10 +20,12 @@ const UsersProvider = ({ children }) => {
 			setIsLoading(true);
 			try {
 				const respObj = await apiCall('get', '/api/users/login');
+
 				const { budget, players } = respObj.data.data;
 				setUserSettings({ budget, players });
 				setIsLoggedIn(true);
 			} catch (err) {
+				console.log('here');
 				//if (err.response.status === 401)
 				setIsLoggedIn(false);
 			} finally {

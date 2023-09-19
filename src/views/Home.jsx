@@ -64,6 +64,7 @@ function Home() {
 				{!isAdding && !inSettings && (
 					<RoundedButton
 						color='green'
+						data-cy='add'
 						onClick={() => {
 							setIsAdding(true);
 							setIsTeamBuilderOpen(true);
@@ -74,6 +75,7 @@ function Home() {
 				{isAdding && (
 					<RoundedButton
 						onClick={() => setIsTeamBuilderOpen((prev) => !prev)}
+						data-cy='hideShow'
 						color={isTeamBuilderOpen ? 'red' : 'green'}
 						size={'lg'}
 						icon={isTeamBuilderOpen ? hide : show}

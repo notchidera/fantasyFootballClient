@@ -34,7 +34,7 @@ function EditableCell({ option, player }) {
 			<input
 				role='cell'
 				onBlur={updateHandler}
-				className='p-2 w-full bg-slate-700 text-center outline-none'
+				className='p-2 w-full text-center bg-inherit outline-none'
 				onChange={(e) => setVal(e.target.value)}
 				value={val}
 				type='number'

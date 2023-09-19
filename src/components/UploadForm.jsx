@@ -51,7 +51,8 @@ function UploadForm() {
 	};
 	return (
 		<form
-			className='bg-slate-100 rounded w-full flex items-center gap-4 text-center justify-center flex-col py-6'
+			data-cy='upload-form'
+			className='bg-slate-100 rounded w-full flex items-center gap-4 text-center justify-center flex-col'
 			onSubmit={submitHandler}
 		>
 			<p>

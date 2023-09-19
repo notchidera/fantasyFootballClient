@@ -17,12 +17,14 @@ function Player({ player }) {
 	) ? (
 		<RoundedButton
 			color={'red'}
+			data-cy={'removePlayer'}
 			onClick={() => removePlayer(player)}
 			size='sm'
 			icon={remove}
 		/>
 	) : (
 		<RoundedButton
+			data-cy={'addPlayer'}
 			color={'green'}
 			onClick={() => addPlayer(player)}
 			size='sm'
@@ -30,13 +32,13 @@ function Player({ player }) {
 	);
 	/* ITERATES OVER THE OPTIONS ARRAY,IF CURRENT OPTION IS NAME, IT GIVES STICKY POSITION TO THE CELL - IF IT'S POSITION IT DETERMINES THE LOOK OF THE POSITION ICON - IF IT'S ONE OF THE EDITABE OPTIONS, IT RENDERS THE PROPER COMPONENT */
 	return (
-		<tr>
+		<tr className='odd:bg-slate-600 even:bg-slate-700'>
 			{options.map((option) => (
 				<td
 					key={option.value}
-					className={`p-2  border-b whitespace-nowrap border-slate-700 space-2  ${
+					className={`p-2  border-b whitespace-nowrap bg-inherit border-slate-700 space-2  ${
 						option.value === 'name'
-							? 'sticky left-0 z-1 bg-slate-700 text-left'
+							? 'sticky left-0 z-1text-left'
 							: 'text-center'
 					}`}
 				>
@@ -54,7 +56,7 @@ function Player({ player }) {
 					) : editableOptions.includes(option.value) ? (
 						<EditableCell option={option.value} player={player} />
 					) : option.value === 'name' && isAdding ? (
-						<span className='flex gap-2 items-center'>
+						<span data-cy='playerName' className='flex gap-2 items-center'>
 							{managePlayerButton} {player[option.value]}
 						</span>
 					) : (
