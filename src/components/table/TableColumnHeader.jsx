@@ -14,7 +14,7 @@ function TableColumnHaeader({ option }) {
 	return (
 		<th
 			className={`p-2 text-center border-b border-slate-100 ${
-				option.value === 'name' && 'sticky left-0 z-1 bg-slate-700'
+				option.value === 'name' && 'sticky left-0 z-1 bg-slate-700 px-4'
 			}`}
 		>
 			<button

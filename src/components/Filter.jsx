@@ -4,7 +4,7 @@ import FilterInput from './FilterInput';
 import PositionIcon from './buttons/PositionButton';
 import Search from './Search';
 import Button from './buttons/Button';
-import { close, filter } from '../icons/icons';
+import { clearFilter, close, filter } from '../icons/icons';
 
 function Filter() {
 	const { options, positions, filterPlayers, clearFiltersHandler } =
@@ -69,7 +69,6 @@ function Filter() {
 				<Button
 					color={'light'}
 					content={'Clear'}
-					icon={close}
 					onClick={clearFiltersHandler}
 					type='button'
 				/>

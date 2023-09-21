@@ -38,7 +38,7 @@ function Player({ player }) {
 					key={option.value}
 					className={`p-2  border-b whitespace-nowrap bg-inherit border-slate-700 space-2  ${
 						option.value === 'name'
-							? 'sticky left-0 z-1text-left'
+							? 'sticky left-0 z-1text-left px-4'
 							: 'text-center'
 					}`}
 				>
