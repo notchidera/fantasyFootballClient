@@ -30,10 +30,13 @@ function UploadForm() {
 			if (!workbook.Directory)
 				throw new Error('Il formato del file non è valido');
 			const sheet_name_list = workbook.SheetNames;
-			const jsonData = XLSX.utils.sheet_to_json(
-				workbook.Sheets[sheet_name_list[0]],
-				{ range: 1 }
-			);
+			const jsonData = XLSX.utils
+				.sheet_to_json(workbook.Sheets[sheet_name_list[0]], { range: 1 })
+				.map((player) => ({
+					...player,
+					currentQuote: player['Qt.A'],
+					initialQuote: player['Qt.I'],
+				}));
 			await toast.promise(apiCall('post', '/api/players', jsonData), {
 				pending: 'Sto caricando la lista',
 				success: 'Lista caricata con successo!',

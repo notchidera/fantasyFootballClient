@@ -111,15 +111,6 @@ function TeamView({ team, isEditing }) {
 									deleteWidth={60}
 									disabled={!isEditing}
 									onDelete={() => removePlayer(player)}
-									onDeleteConfirm={(onSuccess, onCancel) => {
-										if (
-											window.confirm(
-												'Confermi di voler rimuovere il calciatore?'
-											)
-										)
-											onSuccess();
-										else onCancel();
-									}}
 								>
 									<div
 										className={` p-2 bg-slate-700 ${
