@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
-import AccordionItem from './AccordionItem';
 
-export default function Accordion({ items }) {
-	///ITEMS SHOULD BE AN ARRAY OF OBJECTS WITH ID, TITLE, CONTENT
-	const [activeElement, setActiveElement] = useState('');
+const Accordion = ({ items }) => {
+	const [activeElement, setActiveElement] = useState(null);
 
-	///ONCLIK SETS THE ACTIVE ACCORDIONITEM
-	const handleClick = (value) => {
-		if (value === activeElement) {
-			setActiveElement('');
-		} else {
-			setActiveElement(value);
-		}
+	const toggleActive = (id) => {
+		setActiveElement((prev) => (prev === id ? null : id));
 	};
+
 	return (
-		<>
-			<div className='rounded w-full border border-l-0 border-r-0 border-t-0  border-neutral-200 bg-slate-100 dark:border-neutral-600 dark:bg-neutral-800'>
-				{items.map((item) => (
-					<AccordionItem
-						key={item.id}
-						activeElement={activeElement}
-						handleClick={handleClick}
-						id={item.id}
-						title={item.title}
+		<div className="accordion bg-slate-700 text-white rounded-md">
+			{items.map((item) => (
+				<div key={item.id} className="border-b border-gray-600">
+					<button
+						className={`w-full text-left p-4 font-bold ${
+							activeElement === item.id ? 'bg-slate-600' : 'bg-slate-700'
+						}`}
+						onClick={() => toggleActive(item.id)}
 					>
-						{item.content}
-					</AccordionItem>
-				))}
-			</div>
-		</>
+						{item.title}
+					</button>
+					{activeElement === item.id && (
+						<div className="p-4 bg-slate-800">
+							{item.content}
+						</div>
+					)}
+				</div>
+			))}
+		</div>
 	);
-}
+};
+
+export default Accordion;
